@@ -8,13 +8,13 @@ function PageNav() {
       <Logo />
       <ul>
         <li>
-          <NavLink to="/staff">Staff Main Menu</NavLink>
+          <NavLink to="/staff">Staff</NavLink>
         </li>
         <li>
-          <NavLink to="/branch">Branch Main Menu</NavLink>
+          <NavLink to="/branch">Branch</NavLink>
         </li>
         <li>
-          <NavLink to="/client">Client Main Menu</NavLink>
+          <NavLink to="/client">Client</NavLink>
         </li>
       </ul>
     </nav>

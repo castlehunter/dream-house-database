@@ -1,12 +1,19 @@
-// src/pages/Staff.js 或其他页面类似
 import React from "react";
+import { Outlet } from "react-router-dom";
 import Layout from "../components/Layout";
 import styles from "./Staff.module.css";
+import Sidebar from "../components/StaffComponents/StaffSidebar";
+// import StaffList from "../components/StaffComponents/StaffList";
 
 function Staff() {
   return (
     <Layout>
-      <main className={styles.staff}>{/* Staff 页面特有内容 */}</main>
+      <main className={styles.staff}>
+        <Sidebar />
+        <div className={styles.mainContent}>
+          <Outlet />
+        </div>
+      </main>
     </Layout>
   );
 }

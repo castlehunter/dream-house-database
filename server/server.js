@@ -7,6 +7,28 @@ const port = 3000;
 
 app.use(bodyParser.json());
 
+app.get("/api/staff-list", async (req, res) => {
+  try {
+    const connection = await oracledb.getConnection({
+      user: "dbs501_242v1a16",
+      password: "44393138",
+      connectString: "//localhost:1521/xe",
+    });
+
+    const result = await connection.execute(
+      `SELECT staffno, fname, lname, position FROM dh_staff`
+    );
+
+    await connection.close();
+
+    // 将查询结果作为 JSON 数组发送回前端
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error("Error fetching staff list:", error);
+    res.status(500).json({ error: "Failed to fetch staff list" });
+  }
+});
+
 app.post("/api/staff_hire", async (req, res) => {
   const {
     staffno,

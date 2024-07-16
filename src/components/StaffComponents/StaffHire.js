@@ -1,5 +1,5 @@
 function StaffHire() {
-  return <div>staff hire</div>;
+  return <div>Place Staff Hire Component</div>;
 }
 
 export default StaffHire;
