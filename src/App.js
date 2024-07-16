@@ -12,11 +12,10 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="staff-list" element={<StaffList />} />
-        {/* <Route path="staff" element={<Staff />}> */}
-        {/* <Route path="staff-list" element={<StaffList />} /> */}
-        {/* <Route path="staff-hire" element={<StaffHire />} /> */}
-        {/* </Route> */}
+        <Route path="staff" element={<Staff />}>
+          <Route path="staff-list" element={<StaffList />} />
+          <Route path="staff-hire" element={<StaffHire />} />
+        </Route>
         <Route path="branch" element={<Branch />} />
         <Route path="client" element={<Client />} />
       </Routes>

@@ -2,29 +2,38 @@ import React, { useState, useEffect } from "react";
 
 function StaffList() {
   const [staffList, setStaffList] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function fetchStaffList() {
       try {
-        const response = await fetch("/api/staff-list");
+        const response = await fetch("http://localhost:3900/api/staff-list");
         if (!response.ok) {
           throw new Error("Failed to fetch staff list");
         }
         const data = await response.json();
-        setStaffList(data);
+
+        // 转换数组为对象数组
+        const transformedData = data.map((staff) => ({
+          staffno: staff[0],
+          fname: staff[1],
+          lname: staff[2],
+          position: staff[3],
+        }));
+
+        setStaffList(transformedData);
       } catch (error) {
         console.error("Error fetching staff list:", error);
-        // 可以在这里处理错误情况，比如显示错误消息给用户
+        setError(error.message);
       }
     }
 
     fetchStaffList();
-  }, []); // 这里空数组表示只在组件挂载时执行一次
+  }, []);
 
-  // 添加一个新的 useEffect 钩子来监听 staffList 的变化
-  useEffect(() => {
-    console.log("Staff list updated:", staffList);
-  }, [staffList]); // 只有当 staffList 发生变化时才会执行
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div>
@@ -32,7 +41,7 @@ function StaffList() {
       <ul>
         {staffList.map((staff) => (
           <li key={staff.staffno}>
-            {staff.fname} {staff.lname} - {staff.position}
+            {staff.staffno}: {staff.fname} {staff.lname} - {staff.position}
           </li>
         ))}
       </ul>

@@ -1,18 +1,20 @@
 const express = require("express");
 const oracledb = require("oracledb");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const app = express();
-const port = 3000;
+const port = 3900;
 
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get("/api/staff-list", async (req, res) => {
   try {
     const connection = await oracledb.getConnection({
       user: "dbs501_242v1a16",
       password: "44393138",
-      connectString: "//localhost:1521/xe",
+      connectString: "//myoracle12c.senecacollege.ca:1521/oracle12c",
     });
 
     const result = await connection.execute(
@@ -21,7 +23,6 @@ app.get("/api/staff-list", async (req, res) => {
 
     await connection.close();
 
-    // 将查询结果作为 JSON 数组发送回前端
     res.status(200).json(result.rows);
   } catch (error) {
     console.error("Error fetching staff list:", error);
