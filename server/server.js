@@ -18,7 +18,7 @@ app.get("/api/staff-list", async (req, res) => {
     });
 
     const result = await connection.execute(
-      `SELECT staffno, fname, lname, position FROM dh_staff`
+      `SELECT staffno, fname, lname, position,sex,dob,salary,branchno,telephone,mobile,email FROM dh_staff`
     );
 
     await connection.close();
