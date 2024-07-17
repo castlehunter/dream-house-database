@@ -30,7 +30,26 @@ app.get("/api/staff-list", async (req, res) => {
   }
 });
 
-app.post("/api/staff_hire", async (req, res) => {
+app.get("/api/staffno", async (req, res) => {
+  try {
+    const connection = await oracledb.getConnection({
+      user: "dbs501_242v1a16",
+      password: "44393138",
+      connectString: "//myoracle12c.senecacollege.ca:1521/oracle12c",
+    });
+
+    const result = await connection.execute(`SELECT staffno FROM dh_staff`);
+
+    await connection.close();
+
+    res.status(200).json(result.rows.map((row) => row[0]));
+  } catch (error) {
+    console.error("Error fetching staff list:", error);
+    res.status(500).json({ error: "Failed to fetch staff list" });
+  }
+});
+
+app.post("/api/staff-hire", async (req, res) => {
   const {
     staffno,
     fname,
@@ -49,7 +68,7 @@ app.post("/api/staff_hire", async (req, res) => {
     const connection = await oracledb.getConnection({
       user: "dbs501_242v1a16",
       password: "44393138",
-      connectString: "//localhost:1521/xe",
+      connectString: "//myoracle12c.senecacollege.ca:1521/oracle12c",
     });
 
     const result = await connection.execute(
