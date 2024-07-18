@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import styles from "../StaffManagement/StaffList.module.css";
+import styles from "./StaffList.module.css";
 // import Sidebar from "./Sidebar";
 // import Header from "./Header";
 // import SearchFilter from "./SearchFilter";
-import StaffTable from "../StaffManagement/StaffTable";
-import Pagination from "../StaffManagement/Pagination";
+import StaffTable from "./StaffTable";
+import Pagination from "./Pagination";
 
 function StaffList() {
   const [staffData, setStaffData] = useState([]);
