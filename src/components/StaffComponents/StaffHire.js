@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import styles from "./StaffHire.module.css";
 
 function StaffHire() {
   const [firstName, setFirstName] = useState("");
@@ -99,83 +100,247 @@ function StaffHire() {
   }
 
   return (
-    <div>
-      <h2>Staff Hiring</h2>
-      <form onSubmit={handleSubmit}>
-        <label>First Name:</label>
-        <input
-          type="text"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-        <label>Last Name:</label>
-        <input
-          type="text"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-        <label>Position:</label>
-        <input
-          type="text"
-          value={position}
-          onChange={(e) => setPosition(e.target.value)}
-        />
+    // Qian's version
+    <div className={styles.staffFormContainer}>
+      <main className={styles.mainContent}>
+        <section className={styles.formWrapper}>
+          <h2 className={styles.formTitle}>Staff Hiring</h2>
+          <form className={styles.staffForm} onSubmit={handleSubmit}>
+            <div className={styles.formRow}>
+              <div className={styles.formGroup}>
+                <label htmlFor="firstName" className={styles.formLabel}>
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  className={styles.formInput}
+                  placeholder="Enter first name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+              </div>
 
-        <label>BranchNo:</label>
-        <select value={branchNo} onChange={(e) => setBranchNo(e.target.value)}>
-          <option value="" key="select"></option>
-          <option value="B002" key="B002">
-            B002
-          </option>
-          <option value="B003" key="B003">
-            B003
-          </option>
-          <option value="B004" key="B004">
-            B004
-          </option>
-          <option value="B005" key="B005">
-            B005
-          </option>
-          <option value="B007" key="B007">
-            B007
-          </option>
-        </select>
+              <div className={styles.formGroup}>
+                <label htmlFor="lastName" className={styles.formLabel}>
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  className={styles.formInput}
+                  placeholder="Enter last name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+              </div>
+            </div>
 
-        <label>DOB:</label>
-        <input
-          type="date"
-          value={dob}
-          onChange={(e) => setDob(e.target.value)}
-        />
-        <label>Salary:</label>
-        <input
-          type="number"
-          value={salary}
-          onChange={(e) => setSalary(e.target.value)}
-        />
-        <label>Telephone:</label>
-        <input
-          type="text"
-          value={telephone}
-          onChange={(e) => setTelephone(e.target.value)}
-        />
-        <label>Mobile:</label>
-        <input
-          type="text"
-          value={mobile}
-          onChange={(e) => setMobile(e.target.value)}
-        />
-        <label>Email:</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <button type="submit">Hiring</button>
-        <button type="button">Cancel</button>
-      </form>
-      {error && <div>Error: {error}</div>}
+            <div className={styles.formRow}>
+              <div className={styles.formGroup}>
+                <label htmlFor="position" className={styles.formLabel}>
+                  Position
+                </label>
+                <input
+                  type="text"
+                  value={position}
+                  className={styles.formInput}
+                  placeholder="Enter position"
+                  onChange={(e) => setPosition(e.target.value)}
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="branchNumber" className={styles.formLabel}>
+                  Branch Number
+                </label>
+                <div className={styles.inputWithIcon}>
+                  <select
+                    value={branchNo}
+                    className={styles.formInput}
+                    onChange={(e) => setBranchNo(e.target.value)}
+                  >
+                    <option value="" key="select"></option>
+                    <option value="B002" key="B002">
+                      B002
+                    </option>
+                    <option value="B003" key="B003">
+                      B003
+                    </option>
+                    <option value="B004" key="B004">
+                      B004
+                    </option>
+                    <option value="B005" key="B005">
+                      B005
+                    </option>
+                    <option value="B007" key="B007">
+                      B007
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.formRow}>
+              <div className={styles.formGroup}>
+                <label htmlFor="dob" className={styles.formLabel}>
+                  DOB
+                </label>
+                <div className={styles.inputWithIcon}>
+                  <input
+                    type="date"
+                    value={dob}
+                    className={styles.formInput}
+                    onChange={(e) => setDob(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className={styles.formGroup}>
+                <label htmlFor="salary" className={styles.formLabel}>
+                  Salary:
+                </label>
+                <input
+                  type="number"
+                  className={styles.formInput}
+                  placeholder="Enter salary"
+                  value={salary}
+                  onChange={(e) => setSalary(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className={styles.formRow}>
+              <div className={styles.formGroup}>
+                <label htmlFor="telePhone" className={styles.formLabel}>
+                  Telephone
+                </label>
+                <input
+                  type="text"
+                  className={styles.formInput}
+                  placeholder="Enter telephone"
+                  value={telephone}
+                  onChange={(e) => setTelephone(e.target.value)}
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="mobile" className={styles.formLabel}>
+                  Mobile
+                </label>
+                <input
+                  type="text"
+                  className={styles.formInput}
+                  placeholder="Enter mobile phone"
+                  value={mobile}
+                  onChange={(e) => setMobile(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className={styles.formRow}>
+              <div className={styles.formGroup}>
+                <label htmlFor="email" className={styles.formLabel}>
+                  Email
+                </label>
+                <input
+                  type="email"
+                  className={styles.formInput}
+                  placeholder="Enter email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className={styles.formActions}>
+              <button type="submit" className={styles.submitButton}>
+                Hiring
+              </button>
+              <button type="button" className={styles.cancelButton}>
+                Cancel
+              </button>
+            </div>
+          </form>
+          {error && <div>Error: {error}</div>}
+        </section>
+      </main>
     </div>
+
+    // Qing's version
+    // <div>
+    //   <h2>Staff Hiring</h2>
+    //   <form onSubmit={handleSubmit}>
+    //     <label>First Name:</label>
+    //     <input
+    //       type="text"
+    //       value={firstName}
+    //       onChange={(e) => setFirstName(e.target.value)}
+    //     />
+    //     <label>Last Name:</label>
+    //     <input
+    //       type="text"
+    //       value={lastName}
+    //       onChange={(e) => setLastName(e.target.value)}
+    //     />
+    //     <label>Position:</label>
+    //     <input
+    //       type="text"
+    //       value={position}
+    //       onChange={(e) => setPosition(e.target.value)}
+    //     />
+
+    //     <label>BranchNo:</label>
+    //     <select value={branchNo} onChange={(e) => setBranchNo(e.target.value)}>
+    //       <option value="" key="select"></option>
+    //       <option value="B002" key="B002">
+    //         B002
+    //       </option>
+    //       <option value="B003" key="B003">
+    //         B003
+    //       </option>
+    //       <option value="B004" key="B004">
+    //         B004
+    //       </option>
+    //       <option value="B005" key="B005">
+    //         B005
+    //       </option>
+    //       <option value="B007" key="B007">
+    //         B007
+    //       </option>
+    //     </select>
+
+    //     <label>DOB:</label>
+    //     <input
+    //       type="date"
+    //       value={dob}
+    //       onChange={(e) => setDob(e.target.value)}
+    //     />
+    //     <label>Salary:</label>
+    //     <input
+    //       type="number"
+    //       value={salary}
+    //       onChange={(e) => setSalary(e.target.value)}
+    //     />
+    //     <label>Telephone:</label>
+    //     <input
+    //       type="text"
+    //       value={telephone}
+    //       onChange={(e) => setTelephone(e.target.value)}
+    //     />
+    //     <label>Mobile:</label>
+    //     <input
+    //       type="text"
+    //       value={mobile}
+    //       onChange={(e) => setMobile(e.target.value)}
+    //     />
+    //     <label>Email:</label>
+    //     <input
+    //       type="email"
+    //       value={email}
+    //       onChange={(e) => setEmail(e.target.value)}
+    //     />
+    //     <button type="submit">Hiring</button>
+    //     <button type="button">Cancel</button>
+    //   </form>
+    //   {error && <div>Error: {error}</div>}
+    // </div>
   );
 }
 
