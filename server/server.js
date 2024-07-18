@@ -30,7 +30,29 @@ app.get("/api/staff-list", async (req, res) => {
   }
 });
 
-app.get("/api/staffno", async (req, res) => {
+app.get("/api/staff/:staffno", async (req, res) => {
+  try {
+    const connection = await oracledb.getConnection({
+      user: "dbs501_242v1a16",
+      password: "44393138",
+      connectString: "//myoracle12c.senecacollege.ca:1521/oracle12c",
+    });
+
+    const result = await connection.execute(
+      `SELECT staffno, fname, lname, position,sex,dob,salary,branchno,telephone,mobile,email FROM dh_staff WHERE staffno = :placeHolder`,
+      [req.params.staffno]
+    );
+
+    await connection.close();
+
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error("Error fetching the staff:", error);
+    res.status(500).json({ error: "Failed to fetch the staff" });
+  }
+});
+
+app.get("/api/existing-staffno", async (req, res) => {
   try {
     const connection = await oracledb.getConnection({
       user: "dbs501_242v1a16",

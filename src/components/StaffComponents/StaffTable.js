@@ -21,16 +21,21 @@ function StaffTable({ staffData, rowsPerPage, currPage }) {
           <span>per page</span>
         </div>
       </header>
+      <p>Title是按SQL的顺序排列的，td的顺序还未更改</p>
       <table className={styles.staffTable}>
         <thead>
           <tr>
             <th>S/N</th>
+            <th>Staff No.</th>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Branch No.</th>
-            <th>Staff No.</th>
-            <th>Mobile Phone</th>
             <th>Position</th>
+            <th>Sex</th>
+            <th>DOB</th>
+            <th>Salary</th>
+            <th>Branch No.</th>
+            <th>Telephone</th>
+            <th>Mobile</th>
             <th>Email</th>
             <th>Action</th>
           </tr>
@@ -48,7 +53,7 @@ function StaffTable({ staffData, rowsPerPage, currPage }) {
               <td>{staff.email}</td>
               <td>
                 <Link
-                  to={`/staff-edit/${staff.staffNo}`}
+                  to={`/staff/staff-edit/${staff.staffNo}`}
                   className={styles.editButton}
                 >
                   Edit

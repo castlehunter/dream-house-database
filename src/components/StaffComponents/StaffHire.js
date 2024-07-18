@@ -18,7 +18,9 @@ function StaffHire() {
   useEffect(() => {
     async function fetchStaffNos() {
       try {
-        const response = await fetch("http://localhost:3900/api/staffno");
+        const response = await fetch(
+          "http://localhost:3900/api/existing-staffno"
+        );
         const data = await response.json();
         setExistingStaffNos(data);
       } catch (error) {
