@@ -52,13 +52,13 @@ app.get("/api/staffno", async (req, res) => {
 app.post("/api/staff-hire", async (req, res) => {
   const {
     staffno,
-    fname,
-    lname,
+    firstName,
+    lastName,
     position,
     sex,
     dob,
     salary,
-    branchno,
+    branchNo,
     telephone,
     mobile,
     email,
@@ -75,23 +75,23 @@ app.post("/api/staff-hire", async (req, res) => {
       `INSERT INTO dh_staff (
                 staffno, fname, lname, position, sex, dob, salary, branchno, telephone, mobile, email
             ) VALUES (
-                :staffno, :fname, :lname, :position, :sex, TO_DATE(:dob, 'YYYY-MM-DD'), :salary, :branchno, :telephone, :mobile, :email
+                :staffno, :firstName, :lastName, :position, :sex, TO_DATE(:dob, 'YYYY-MM-DD'), :salary, :branchNo, :telephone, :mobile, :email
             )`,
       {
         staffno,
-        fname,
-        lname,
+        firstName,
+        lastName,
         position,
         sex,
         dob,
         salary,
-        branchno,
+        branchNo,
         telephone,
         mobile,
         email,
       },
       {
-        autoCommit: true, // 自动提交事务
+        autoCommit: true,
       }
     );
 

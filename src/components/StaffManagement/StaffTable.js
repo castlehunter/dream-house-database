@@ -3,8 +3,9 @@
  */
 import React from "react";
 import styles from "./StaffTable.module.css";
+import { Link } from "react-router-dom";
 
-const StaffTable = ({ staffData, rowsPerPage, currPage }) => {
+function StaffTable({ staffData, rowsPerPage, currPage }) {
   const currData = staffData.slice(
     (currPage - 1) * rowsPerPage,
     currPage * rowsPerPage
@@ -46,7 +47,12 @@ const StaffTable = ({ staffData, rowsPerPage, currPage }) => {
               <td>{staff.position}</td>
               <td>{staff.email}</td>
               <td>
-                <button className={styles.editButton}>Edit</button>
+                <Link
+                  to={`/staff-edit/${staff.staffNo}`}
+                  className={styles.editButton}
+                >
+                  Edit
+                </Link>
               </td>
             </tr>
           ))}
@@ -54,6 +60,6 @@ const StaffTable = ({ staffData, rowsPerPage, currPage }) => {
       </table>
     </section>
   );
-};
+}
 
 export default StaffTable;

@@ -31,7 +31,7 @@ function StaffHire() {
   function generateStaffNo() {
     let staffNo;
     do {
-      const randomNumber = Math.floor(Math.random() * 900) + 100; // 生成100到999之间的随机数
+      const randomNumber = Math.floor(Math.random() * 900) + 100;
       staffNo = `S${randomNumber}`;
     } while (existingStaffNos.includes(staffNo));
     return staffNo;
@@ -58,10 +58,10 @@ function StaffHire() {
     const staffno = generateStaffNo();
     const newStaff = {
       staffno,
-      fname: firstName,
-      lname: lastName,
+      firstName,
+      lastName,
       position,
-      branchno: branchNo,
+      branchNo,
       dob,
       salary: parseFloat(salary).toFixed(2),
       telephone,
@@ -75,6 +75,7 @@ function StaffHire() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newStaff),
       });
+
       if (!response.ok) {
         throw new Error("Failed to add new staff");
       }
