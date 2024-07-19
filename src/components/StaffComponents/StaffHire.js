@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./StaffHire.module.css";
+import { Link, useNavigate } from "react-router-dom";
 
 function StaffHire() {
   const [firstName, setFirstName] = useState("");
@@ -14,6 +15,7 @@ function StaffHire() {
   const [error, setError] = useState(null);
 
   const [existingStaffNos, setExistingStaffNos] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchStaffNos() {
@@ -59,6 +61,7 @@ function StaffHire() {
     }
 
     const staffno = generateStaffNo();
+
     const newStaff = {
       staffno,
       firstName,
@@ -83,15 +86,7 @@ function StaffHire() {
         throw new Error("Failed to add new staff");
       }
 
-      // setFirstName("");
-      // setLastName("");
-      // setPosition("");
-      // setBranchNo("");
-      // setDob("");
-      // setSalary(0);
-      // setTelephone("");
-      // setMobile("");
-      // setEmail("");
+      navigate(`/staff/hire-confirmed/${staffno}`);
     } catch (error) {
       setError(error.message);
     }
@@ -255,94 +250,15 @@ function StaffHire() {
               <button type="submit" className={styles.submitButton}>
                 Hiring
               </button>
-              <button type="button" className={styles.cancelButton}>
+              <Link to="/staff" className={styles.cancelButton}>
                 Cancel
-              </button>
+              </Link>
             </div>
           </form>
           {error && <div>Error: {error}</div>}
         </section>
       </main>
     </div>
-
-    // Qing's version
-    // <div>
-    //   <h2>Staff Hiring</h2>
-    //   <form onSubmit={handleSubmit}>
-    //     <label>First Name:</label>
-    //     <input
-    //       type="text"
-    //       value={firstName}
-    //       onChange={(e) => setFirstName(e.target.value)}
-    //     />
-    //     <label>Last Name:</label>
-    //     <input
-    //       type="text"
-    //       value={lastName}
-    //       onChange={(e) => setLastName(e.target.value)}
-    //     />
-    //     <label>Position:</label>
-    //     <input
-    //       type="text"
-    //       value={position}
-    //       onChange={(e) => setPosition(e.target.value)}
-    //     />
-
-    //     <label>BranchNo:</label>
-    //     <select value={branchNo} onChange={(e) => setBranchNo(e.target.value)}>
-    //       <option value="" key="select"></option>
-    //       <option value="B002" key="B002">
-    //         B002
-    //       </option>
-    //       <option value="B003" key="B003">
-    //         B003
-    //       </option>
-    //       <option value="B004" key="B004">
-    //         B004
-    //       </option>
-    //       <option value="B005" key="B005">
-    //         B005
-    //       </option>
-    //       <option value="B007" key="B007">
-    //         B007
-    //       </option>
-    //     </select>
-
-    //     <label>DOB:</label>
-    //     <input
-    //       type="date"
-    //       value={dob}
-    //       onChange={(e) => setDob(e.target.value)}
-    //     />
-    //     <label>Salary:</label>
-    //     <input
-    //       type="number"
-    //       value={salary}
-    //       onChange={(e) => setSalary(e.target.value)}
-    //     />
-    //     <label>Telephone:</label>
-    //     <input
-    //       type="text"
-    //       value={telephone}
-    //       onChange={(e) => setTelephone(e.target.value)}
-    //     />
-    //     <label>Mobile:</label>
-    //     <input
-    //       type="text"
-    //       value={mobile}
-    //       onChange={(e) => setMobile(e.target.value)}
-    //     />
-    //     <label>Email:</label>
-    //     <input
-    //       type="email"
-    //       value={email}
-    //       onChange={(e) => setEmail(e.target.value)}
-    //     />
-    //     <button type="submit">Hiring</button>
-    //     <button type="button">Cancel</button>
-    //   </form>
-    //   {error && <div>Error: {error}</div>}
-    // </div>
   );
 }
 

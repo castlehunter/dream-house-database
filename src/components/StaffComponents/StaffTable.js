@@ -21,7 +21,7 @@ function StaffTable({ staffData, rowsPerPage, currPage }) {
           <span>per page</span>
         </div>
       </header>
-      <p>Title是按SQL的顺序排列的，td的顺序还未更改</p>
+
       <table className={styles.staffTable}>
         <thead>
           <tr>
@@ -44,12 +44,16 @@ function StaffTable({ staffData, rowsPerPage, currPage }) {
           {currData.map((staff, index) => (
             <tr key={staff.staffNo}>
               <td>{index + 1 + (currPage - 1) * rowsPerPage}</td>
+              <td>{staff.staffNo}</td>
               <td>{staff.fname}</td>
               <td>{staff.lname}</td>
-              <td>{staff.branchNo}</td>
-              <td>{staff.staffNo}</td>
-              <td>{staff.mobile}</td>
               <td>{staff.position}</td>
+              <td>{staff.sex}</td>
+              <td>{staff.dob}</td>
+              <td>{staff.salary}</td>
+              <td>{staff.branchNo}</td>
+              <td>{staff.telephone}</td>
+              <td>{staff.mobile}</td>
               <td>{staff.email}</td>
               <td>
                 <Link

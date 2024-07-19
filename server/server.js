@@ -94,11 +94,21 @@ app.post("/api/staff-hire", async (req, res) => {
     });
 
     const result = await connection.execute(
-      `INSERT INTO dh_staff (
-                staffno, fname, lname, position, sex, dob, salary, branchno, telephone, mobile, email
-            ) VALUES (
-                :staffno, :firstName, :lastName, :position, :sex, TO_DATE(:dob, 'YYYY-MM-DD'), :salary, :branchNo, :telephone, :mobile, :email
-            )`,
+      `BEGIN 
+         Staff_hire_sp(
+           :staffno, 
+           :firstName, 
+           :lastName, 
+           :position, 
+           :sex, 
+           TO_DATE(:dob, 'YYYY-MM-DD'), 
+           :salary, 
+           :branchNo, 
+           :telephone, 
+           :mobile, 
+           :email
+         ); 
+       END;`,
       {
         staffno,
         firstName,
