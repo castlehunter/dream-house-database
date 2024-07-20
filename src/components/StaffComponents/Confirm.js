@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-function ConfirmHire() {
+function Confirm({ type }) {
   const [staffData, setStaffData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -9,7 +9,7 @@ function ConfirmHire() {
 
   useEffect(() => {
     if (!staffNo) {
-      return; // 如果 `staffNo` 不存在，则不进行数据获取
+      return;
     }
 
     async function fetchStaffData() {
@@ -56,7 +56,8 @@ function ConfirmHire() {
 
   return (
     <>
-      <h1>Staff Added</h1>
+      {type === "hire" && <h1>Staff Added</h1>}
+      {type === "edit" && <h1>Staff Updated</h1>}
       <div>
         <p>First Name: {staffData.firstName}</p>
         <p>Last Name: {staffData.lastName}</p>
@@ -69,9 +70,9 @@ function ConfirmHire() {
         <p>Email: {staffData.email}</p>
       </div>
       {/* <Link to={`/staff/staff-edit/${staffNo}`}>Edit</Link> */}
-      <Link to="/staff/staff-list">Confirm and go to staff list</Link>
+      <Link to="/staff/staff-list">Go to staff list</Link>
     </>
   );
 }
 
-export default ConfirmHire;
+export default Confirm;

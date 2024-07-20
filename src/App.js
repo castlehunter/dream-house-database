@@ -8,7 +8,7 @@ import StaffHire from "./components/StaffComponents/StaffHire";
 import Branch from "./pages/Branch";
 import Client from "./pages/Client";
 import StaffEdit from "./components/StaffComponents/StaffEdit";
-import ConfirmHire from "./components/StaffComponents/ConfirmHire";
+import Confirm from "./components/StaffComponents/Confirm";
 
 function App() {
   return (
@@ -19,8 +19,15 @@ function App() {
           <Route index element={<StaffList />} />
           <Route path="staff-list" element={<StaffList />} />
           <Route path="staff-hire" element={<StaffHire />} />
-          <Route path="hire-confirmed/:staffNo" element={<ConfirmHire />} />
+          <Route
+            path="hire-confirmed/:staffNo"
+            element={<Confirm type="hire" />}
+          />
           <Route path="staff-edit/:staffNo" element={<StaffEdit />} />
+          <Route
+            path="edit-confirmed/:staffNo"
+            element={<Confirm type="edit" />}
+          />
         </Route>
         <Route path="branch" element={<Branch />} />
         <Route path="client" element={<Client />} />

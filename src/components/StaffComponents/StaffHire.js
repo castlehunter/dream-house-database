@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./StaffHire.module.css";
+import styles from "./StaffHireEdit.module.css";
 import { Link, useNavigate } from "react-router-dom";
 
 function StaffHire() {
@@ -248,7 +248,7 @@ function StaffHire() {
 
             <div className={styles.formActions}>
               <button type="submit" className={styles.submitButton}>
-                Hiring
+                Hire
               </button>
               <Link to="/staff" className={styles.cancelButton}>
                 Cancel

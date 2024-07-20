@@ -136,6 +136,42 @@ app.post("/api/staff-hire", async (req, res) => {
   }
 });
 
+app.put("/api/staff/:staffNo", async (req, res) => {
+  console.log("HELLO");
+  const { salary, telephone, email } = req.body;
+  const { staffNo } = req.params;
+
+  console.log("staffNo is", staffNo);
+  try {
+    const connection = await oracledb.getConnection({
+      user: "dbs501_242v1a16",
+      password: "44393138",
+      connectString: "//myoracle12c.senecacollege.ca:1521/oracle12c",
+    });
+
+    const result = await connection.execute(
+      `UPDATE dh_staff SET salary= :salary, telephone = :telephone, email = :email WHERE staffno = :staffno`,
+      {
+        salary,
+        telephone,
+        email,
+        staffNo,
+      },
+      {
+        autoCommit: true,
+      }
+    );
+
+    await connection.close();
+    console.log("Update result:", result);
+
+    res.status(200).json({ message: "Staff update successfully!" });
+  } catch (error) {
+    console.error("Error executing query:", error);
+    res.status(500).json({ error: "Failed to update staff" });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

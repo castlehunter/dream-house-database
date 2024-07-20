@@ -1,6 +1,6 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import styles from "./StaffHire.module.css";
+import styles from "./StaffHireEdit.module.css";
 
 function StaffEdit() {
   const [firstName, setFirstName] = useState("");
@@ -15,6 +15,7 @@ function StaffEdit() {
   const [error, setError] = useState(null);
 
   const { staffNo } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchStaffData() {
@@ -40,6 +41,10 @@ function StaffEdit() {
           mobile: staff[9],
           email: staff[10],
         }));
+
+        if (transformedData.length === 0) {
+          throw new Error("No staff data found");
+        }
 
         const {
           fname,
@@ -73,32 +78,19 @@ function StaffEdit() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if (
-      !firstName ||
-      !lastName ||
-      !position ||
-      !branchNo ||
-      !dob ||
-      !salary ||
-      !telephone ||
-      !mobile ||
-      !email
-    ) {
-      alert("Please fill in all fields");
+    if (!salary || !telephone || !email) {
+      alert("Fields cannot be blank!");
       return;
     }
 
     const updatedStaff = {
-      firstName,
-      lastName,
-      position,
-      branchNo,
-      dob,
+      staffNo,
       salary,
       telephone,
-      mobile,
       email,
     };
+
+    console.log("Sending data:", updatedStaff); // Add this line to check the data
 
     try {
       const response = await fetch(
@@ -116,6 +108,8 @@ function StaffEdit() {
     } catch (error) {
       setError(error.message);
     }
+
+    navigate(`/staff/edit-confirmed/${staffNo}`);
   }
 
   if (error) {
@@ -127,6 +121,7 @@ function StaffEdit() {
       <main className={styles.mainContent}>
         <section className={styles.formWrapper}>
           <h2 className={styles.formTitle}>Staff Editing</h2>
+
           <form className={styles.staffForm} onSubmit={handleSubmit}>
             <div className={styles.formRow}>
               <div className={styles.formGroup}>
@@ -138,6 +133,7 @@ function StaffEdit() {
                   className={styles.formInput}
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
+                  disabled="true"
                 />
               </div>
 
@@ -150,6 +146,7 @@ function StaffEdit() {
                   className={styles.formInput}
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
+                  disabled="true"
                 />
               </div>
             </div>
@@ -165,14 +162,17 @@ function StaffEdit() {
                   className={styles.formInput}
                   placeholder="Enter position"
                   onChange={(e) => setPosition(e.target.value)}
+                  disabled="true"
                 />
               </div>
+
               <div className={styles.formGroup}>
                 <label htmlFor="branchNumber" className={styles.formLabel}>
                   Branch Number
                 </label>
                 <div className={styles.inputWithIcon}>
                   <select
+                    disabled="true"
                     value={branchNo}
                     className={styles.formInput}
                     onChange={(e) => setBranchNo(e.target.value)}
@@ -209,6 +209,7 @@ function StaffEdit() {
                     value={dob}
                     className={styles.formInput}
                     onChange={(e) => setDob(e.target.value)}
+                    disabled="true"
                   />
                 </div>
               </div>
@@ -229,7 +230,7 @@ function StaffEdit() {
 
             <div className={styles.formRow}>
               <div className={styles.formGroup}>
-                <label htmlFor="telePhone" className={styles.formLabel}>
+                <label htmlFor="telephone" className={styles.formLabel}>
                   Telephone
                 </label>
                 <input
@@ -250,6 +251,7 @@ function StaffEdit() {
                   placeholder="Enter mobile phone"
                   value={mobile}
                   onChange={(e) => setMobile(e.target.value)}
+                  disabled="true"
                 />
               </div>
             </div>
