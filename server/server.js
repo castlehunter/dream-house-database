@@ -137,11 +137,9 @@ app.post("/api/staff-hire", async (req, res) => {
 });
 
 app.put("/api/staff/:staffNo", async (req, res) => {
-  console.log("HELLO");
   const { salary, telephone, email } = req.body;
   const { staffNo } = req.params;
 
-  console.log("staffNo is", staffNo);
   try {
     const connection = await oracledb.getConnection({
       user: "dbs501_242v1a16",

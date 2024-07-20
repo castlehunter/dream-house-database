@@ -1,0 +1,19 @@
+.submitButton,
+.cancelButton {
+  padding: 10px 20px;
+  border-radius: 10px;
+  font: 400 14px/24px Nunito, sans-serif;
+  cursor: pointer;
+}
+
+.submitButton {
+  background: linear-gradient(135deg, #14add6 0%, #384295 100%);
+  color: #fff;
+  border: none;
+}
+
+.cancelButton {
+  background: linear-gradient(135deg, #14add6 0%, #384295 100%);
+  color: #fff;
+  border: none;
+}
