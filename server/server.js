@@ -170,6 +170,28 @@ app.put("/api/staff/:staffNo", async (req, res) => {
   }
 });
 
+app.get("/api/branch-address/:branchno", async (req, res) => {
+  try {
+    const connection = await oracledb.getConnection({
+      user: "dbs501_242v1a16",
+      password: "44393138",
+      connectString: "//myoracle12c.senecacollege.ca:1521/oracle12c",
+    });
+
+    const result = await connection.execute(
+      `SELECT branchno, street, city, postcode FROM dh_branch WHERE branchno = :branchno`,
+      [req.params.branchno]
+    );
+
+    await connection.close();
+
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error("Error executing query:", error);
+    res.status(500).json({ error: "Failed to update staff" });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
