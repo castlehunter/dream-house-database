@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./StaffHireEdit.module.css";
 import { Link, useNavigate } from "react-router-dom";
+import Button from "../Button";
 
 function StaffHire() {
   const [firstName, setFirstName] = useState("");
@@ -94,6 +95,11 @@ function StaffHire() {
 
   if (error) {
     return <div>Error: {error}</div>;
+  }
+
+  function handleCancel(e) {
+    e.preventDefault();
+    navigate(-1);
   }
 
   return (
@@ -247,12 +253,10 @@ function StaffHire() {
             </div>
 
             <div className={styles.formActions}>
-              <button type="submit" className={styles.submitButton}>
-                Hire
-              </button>
-              <Link to="/staff" className={styles.cancelButton}>
+              <Button classType="submit">Hire</Button>
+              <Button classType="cancel" onClick={handleCancel}>
                 Cancel
-              </Link>
+              </Button>
             </div>
           </form>
           {error && <div>Error: {error}</div>}

@@ -4,8 +4,8 @@ import HomePage from "./pages/HomePage";
 import Staff from "./pages/Staff";
 import StaffList from "./components/StaffComponents/StaffList";
 import StaffHire from "./components/StaffComponents/StaffHire";
-
 import Branch from "./pages/Branch";
+import IdentifyBranchAddress from "./components/BranchComponents/IdentifyBranchAddress";
 import Client from "./pages/Client";
 import StaffEdit from "./components/StaffComponents/StaffEdit";
 import Confirm from "./components/StaffComponents/Confirm";
@@ -29,7 +29,14 @@ function App() {
             element={<Confirm type="edit" />}
           />
         </Route>
-        <Route path="branch" element={<Branch />} />
+
+        <Route path="branch" element={<Branch />}>
+          <Route index element={<IdentifyBranchAddress />} />
+          <Route
+            path="identify-branch-address"
+            element={<IdentifyBranchAddress />}
+          />
+        </Route>
         <Route path="client" element={<Client />} />
       </Routes>
     </BrowserRouter>
