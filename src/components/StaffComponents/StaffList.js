@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styles from "./StaffList.module.css";
-// import Sidebar from "./Sidebar";
-// import Header from "./Header";
-// import SearchFilter from "./SearchFilter";
 import StaffTable from "./StaffTable";
 import Pagination from "./Pagination";
 

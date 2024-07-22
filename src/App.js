@@ -4,11 +4,12 @@ import HomePage from "./pages/HomePage";
 import Staff from "./pages/Staff";
 import StaffList from "./components/StaffComponents/StaffList";
 import StaffHire from "./components/StaffComponents/StaffHire";
-import Branch from "./pages/Branch";
-import IdentifyBranchAddress from "./components/BranchComponents/IdentifyBranchAddress";
 import Client from "./pages/Client";
 import StaffEdit from "./components/StaffComponents/StaffEdit";
 import Confirm from "./components/StaffComponents/Confirm";
+import Branch from "./pages/Branch";
+import IdentifyBranchAddress from "./components/BranchComponents/IdentifyBranchAddress";
+import OpenABranch from "./components/BranchComponents/OpenABranch";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             path="identify-branch-address"
             element={<IdentifyBranchAddress />}
           />
+          <Route path="open-a-branch" element={<OpenABranch />} />
         </Route>
         <Route path="client" element={<Client />} />
       </Routes>

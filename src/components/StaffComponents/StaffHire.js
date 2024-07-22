@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import styles from "./StaffHireEdit.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import styles from "../Form.module.css";
+import { useNavigate } from "react-router-dom";
 import Button from "../Button";
 
 function StaffHire() {

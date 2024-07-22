@@ -7,7 +7,7 @@ import Sidebar from "../components/Sidebar";
 
 const sidebarLinks = [
   { linkName: "Identify Branch address", linkPath: "identify-branch-address" },
-  { linkName: "Staff Hire", linkPath: "staff-hire" },
+  { linkName: "Open a branch", linkPath: "open-a-branch" },
 ];
 
 function Branch() {
