@@ -15,7 +15,7 @@ function IdentifyBranchAddress() {
 
     try {
       const response = await fetch(
-        `http://localhost:3900/api/branch-address/${branchNo}`
+        `http://localhost:3900/api/branch/${branchNo}`
       );
 
       if (!response.ok) {

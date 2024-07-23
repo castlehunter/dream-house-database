@@ -22,7 +22,7 @@ function StaffHire() {
     async function fetchStaffNos() {
       try {
         const response = await fetch(
-          "http://localhost:3900/api/existing-staffno"
+          "http://localhost:3900/api/staff/existing-staffno"
         );
         const data = await response.json();
         setExistingStaffNos(data);
@@ -77,11 +77,14 @@ function StaffHire() {
     };
 
     try {
-      const response = await fetch("http://localhost:3900/api/staff-hire", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newStaff),
-      });
+      const response = await fetch(
+        "http://localhost:3900/api/staff/staff-hire",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newStaff),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to add new staff");

@@ -18,7 +18,9 @@ function StaffList() {
   useEffect(() => {
     async function fetchStaffData() {
       try {
-        const response = await fetch("http://localhost:3900/api/staff-list");
+        const response = await fetch(
+          "http://localhost:3900/api/staff/staff-list"
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch staff list");
         }

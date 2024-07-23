@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "../Form.module.css";
 import Button from "../Button";
 
@@ -8,11 +8,52 @@ function OpenABranch() {
   const [city, setCity] = useState("");
   const [postcode, setPostcode] = useState("");
   const [error, setError] = useState(null);
+  const [existingBranchNos, setExistingBranchNos] = useState([]);
+
+  // Fetch existing branch numbers on component mount
+  useEffect(() => {
+    async function fetchExistingBranchno() {
+      try {
+        const res = await fetch(
+          "http://localhost:3900/api/branch/existing-branchno"
+        );
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await res.json();
+        setExistingBranchNos(data);
+      } catch (error) {
+        setError(error.message);
+      }
+    }
+    fetchExistingBranchno();
+  }, []);
+
+  function generateBranchno() {
+    let newBranchNo = "";
+    if (existingBranchNos.length > 0) {
+      newBranchNo = Math.max(...existingBranchNos) + 1;
+    }
+    return newBranchNo.toString();
+  }
+
+  // Generate branch number based on existing branch numbers
+  useEffect(() => {
+    if (existingBranchNos.length > 0) {
+      const newBranchNo = generateBranchno();
+      setBranchno(newBranchNo);
+    }
+  }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
+    // Add your form submission logic here
   }
-  function handleCancel() {}
+
+  function handleCancel() {
+    // Add your cancel logic here
+  }
+
   return (
     <div className={styles.staffFormContainer}>
       <main className={styles.mainContent}>
@@ -25,30 +66,12 @@ function OpenABranch() {
                 <label htmlFor="branchno" className={styles.formLabel}>
                   Branch No.
                 </label>
-                <div className={styles.inputWithIcon}>
-                  <select
-                    value={branchno}
-                    className={styles.formInput}
-                    onChange={(e) => setBranchno(e.target.value)}
-                  >
-                    <option value="" key="select"></option>
-                    <option value="B002" key="B002">
-                      B002
-                    </option>
-                    <option value="B003" key="B003">
-                      B003
-                    </option>
-                    <option value="B004" key="B004">
-                      B004
-                    </option>
-                    <option value="B005" key="B005">
-                      B005
-                    </option>
-                    <option value="B007" key="B007">
-                      B007
-                    </option>
-                  </select>
-                </div>
+                <input
+                  type="text"
+                  className={styles.formInput}
+                  value={branchno}
+                  readOnly
+                />
               </div>
 
               <div className={styles.formGroup}>
@@ -63,41 +86,41 @@ function OpenABranch() {
                   onChange={(e) => setStreet(e.target.value)}
                 />
               </div>
-            </div>
 
-            <div className={styles.formRow}>
+              <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="city" className={styles.formLabel}>
+                    City
+                  </label>
+                  <input
+                    type="text"
+                    value={city}
+                    className={styles.formInput}
+                    placeholder="Enter city"
+                    onChange={(e) => setCity(e.target.value)}
+                  />
+                </div>
+              </div>
+
               <div className={styles.formGroup}>
-                <label htmlFor="city" className={styles.formLabel}>
-                  City
+                <label htmlFor="postcode" className={styles.formLabel}>
+                  Postal Code
                 </label>
                 <input
                   type="text"
-                  value={city}
                   className={styles.formInput}
-                  placeholder="Enter city"
-                  onChange={(e) => setCity(e.target.value)}
+                  placeholder="Enter postal code"
+                  value={postcode}
+                  onChange={(e) => setPostcode(e.target.value)}
                 />
               </div>
-            </div>
 
-            <div className={styles.formGroup}>
-              <label htmlFor="postcode" className={styles.formLabel}>
-                Postal Code
-              </label>
-              <input
-                type="text"
-                className={styles.formInput}
-                placeholder="Enter postal code"
-                value={postcode}
-                onChange={(e) => setPostcode(e.target.value)}
-              />
-            </div>
-
-            <div className={styles.formActions}>
-              <Button classType="submit">Add</Button>
-              <Button classType="cancel" onClick={handleCancel}>
-                Cancel
-              </Button>
+              <div className={styles.formActions}>
+                <button classType="submit">Add</button>
+                <button classType="cancel" onClick={handleCancel}>
+                  Cancel
+                </button>
+              </div>
             </div>
           </form>
           {error && <div>Error: {error}</div>}
