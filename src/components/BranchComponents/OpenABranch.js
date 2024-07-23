@@ -1,16 +1,14 @@
 import { useState, useEffect } from "react";
 import styles from "../Form.module.css";
-import Button from "../Button";
 
 function OpenABranch() {
-  const [branchno, setBranchno] = useState("");
+  const [branchNo, setBranchNo] = useState("");
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [postcode, setPostcode] = useState("");
   const [error, setError] = useState(null);
   const [existingBranchNos, setExistingBranchNos] = useState([]);
 
-  // Fetch existing branch numbers on component mount
   useEffect(() => {
     async function fetchExistingBranchno() {
       try {
@@ -30,20 +28,24 @@ function OpenABranch() {
   }, []);
 
   function generateBranchno() {
-    let newBranchNo = "";
-    if (existingBranchNos.length > 0) {
-      newBranchNo = Math.max(...existingBranchNos) + 1;
-    }
-    return newBranchNo.toString();
+    let number = 8;
+    let branchNo;
+    do {
+      branchNo = number.toString().padStart(3, "0");
+      branchNo = `B${branchNo}`;
+      number++;
+    } while (existingBranchNos.includes(branchNo));
+    setBranchNo(branchNo);
+    return branchNo;
   }
 
   // Generate branch number based on existing branch numbers
   useEffect(() => {
     if (existingBranchNos.length > 0) {
       const newBranchNo = generateBranchno();
-      setBranchno(newBranchNo);
+      setBranchNo(newBranchNo);
     }
-  }, []);
+  }, [existingBranchNos]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -63,13 +65,13 @@ function OpenABranch() {
           <form className={styles.staffForm} onSubmit={handleSubmit}>
             <div className={styles.formRow}>
               <div className={styles.formGroup}>
-                <label htmlFor="branchno" className={styles.formLabel}>
+                <label htmlFor="branchNo" className={styles.formLabel}>
                   Branch No.
                 </label>
                 <input
                   type="text"
                   className={styles.formInput}
-                  value={branchno}
+                  value={branchNo}
                   readOnly
                 />
               </div>

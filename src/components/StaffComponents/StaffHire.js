@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 import Button from "../Button";
 
 function StaffHire() {
+  const [staffNo, setStaffNo] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [position, setPosition] = useState("");
+  const [sex, setSex] = useState("");
   const [branchNo, setBranchNo] = useState("");
   const [dob, setDob] = useState("");
   const [salary, setSalary] = useState(0);
@@ -26,6 +28,7 @@ function StaffHire() {
         );
         const data = await response.json();
         setExistingStaffNos(data);
+        setStaffNo(generateStaffNo());
       } catch (error) {
         console.error("Error fetching staff numbers:", error);
         setError("Failed to fetch existing staff numbers");
@@ -34,12 +37,23 @@ function StaffHire() {
     fetchStaffNos();
   }, []);
 
+  // useEffect(() => {
+  //   if (existingStaffNos.length > 0) {
+  //     setStaffNo(generateStaffNo());
+  //   }
+  // }, [existingStaffNos]);
+
   function generateStaffNo() {
+    const prefix = "S";
+    let number = 2;
     let staffNo;
+
     do {
-      const randomNumber = Math.floor(Math.random() * 900) + 100;
-      staffNo = `S${randomNumber}`;
+      const formattedNumber = number.toString().padStart(3, "0");
+      staffNo = `${prefix}${formattedNumber}`;
+      number++;
     } while (existingStaffNos.includes(staffNo));
+
     return staffNo;
   }
 
@@ -47,9 +61,11 @@ function StaffHire() {
     e.preventDefault();
 
     if (
+      !staffNo ||
       !firstName ||
       !lastName ||
       !position ||
+      !sex ||
       !branchNo ||
       !dob ||
       !salary ||
@@ -57,17 +73,16 @@ function StaffHire() {
       !mobile ||
       !email
     ) {
-      alert("Please fill in all fields");
+      alert("Please fill in all fields!");
       return;
     }
 
-    const staffno = generateStaffNo();
-
     const newStaff = {
-      staffno,
+      staffNo,
       firstName,
       lastName,
       position,
+      sex,
       branchNo,
       dob,
       salary: parseFloat(salary).toFixed(2),
@@ -90,7 +105,7 @@ function StaffHire() {
         throw new Error("Failed to add new staff");
       }
 
-      navigate(`/staff/hire-confirmed/${staffno}`);
+      navigate(`/staff/hire-confirmed/${staffNo}`);
     } catch (error) {
       setError(error.message);
     }
@@ -106,13 +121,25 @@ function StaffHire() {
   }
 
   return (
-    // Qian's version
     <div className={styles.staffFormContainer}>
       <main className={styles.mainContent}>
         <section className={styles.formWrapper}>
           <h2 className={styles.formTitle}>Staff Hiring</h2>
           <form className={styles.staffForm} onSubmit={handleSubmit}>
             <div className={styles.formRow}>
+              <div className={styles.formGroup}>
+                <label htmlFor="staffno" className={styles.formLabel}>
+                  Staff No.
+                </label>
+                <input
+                  type="text"
+                  className={styles.formInput}
+                  value={staffNo}
+                  // onChange={(e) => setStaffNo(e.target.value)}
+                  readOnly
+                />
+              </div>
+
               <div className={styles.formGroup}>
                 <label htmlFor="firstName" className={styles.formLabel}>
                   First Name
@@ -153,6 +180,20 @@ function StaffHire() {
                   onChange={(e) => setPosition(e.target.value)}
                 />
               </div>
+
+              <div className={styles.formGroup}>
+                <label htmlFor="sex" className={styles.formLabel}>
+                  Sex
+                </label>
+                <input
+                  type="text"
+                  value={sex}
+                  className={styles.formInput}
+                  placeholder="Enter Sex"
+                  onChange={(e) => setSex(e.target.value)}
+                />
+              </div>
+
               <div className={styles.formGroup}>
                 <label htmlFor="branchNumber" className={styles.formLabel}>
                   Branch Number
@@ -226,6 +267,7 @@ function StaffHire() {
                   onChange={(e) => setTelephone(e.target.value)}
                 />
               </div>
+
               <div className={styles.formGroup}>
                 <label htmlFor="mobile" className={styles.formLabel}>
                   Mobile
