@@ -9,7 +9,9 @@ import StaffEdit from "./components/StaffComponents/StaffEdit";
 import Confirm from "./components/StaffComponents/Confirm";
 import Branch from "./pages/Branch";
 import IdentifyBranchAddress from "./components/BranchComponents/IdentifyBranchAddress";
+import BranchList from "./components/BranchComponents/BranchList";
 import OpenABranch from "./components/BranchComponents/OpenABranch";
+import BranchEdit from "./components/BranchComponents/BranchEdit";
 
 function App() {
   return (
@@ -36,6 +38,12 @@ function App() {
           <Route
             path="identify-branch-address"
             element={<IdentifyBranchAddress />}
+          />
+          <Route path="branch-list" element={<BranchList />} />
+          <Route path="branch-edit/:branchNo" element={<BranchEdit />} />
+          <Route
+            path="edit-confirmed/:branchNo"
+            element={<Confirm type="edit" />}
           />
           <Route path="open-a-branch" element={<OpenABranch />} />
         </Route>

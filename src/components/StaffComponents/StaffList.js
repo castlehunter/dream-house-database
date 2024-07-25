@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import styles from "./StaffList.module.css";
+import styles from "../StaffList.module.css";
 import StaffTable from "./StaffTable";
-import Pagination from "./Pagination";
+import Pagination from "../Pagination";
 
 function StaffList() {
   const [staffData, setStaffData] = useState([]);

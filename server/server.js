@@ -169,6 +169,26 @@ app.put("/api/staff/:staffNo", async (req, res) => {
   }
 });
 
+app.get("/api/branch/branch-list", async (req, res) => {
+  try {
+    const connection = await oracledb.getConnection({
+      user: "dbs501_242v1a16",
+      password: "44393138",
+      connectString: "//myoracle12c.senecacollege.ca:1521/oracle12c",
+    });
+    const result = await connection.execute(
+      `SELECT branchno, street, city, postcode FROM dh_branch`
+    );
+
+    await connection.close();
+
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error("Error fetching branch list:", error);
+    res.status(500).json({ error: "Failed to fetch branch list" });
+  }
+});
+
 app.get("/api/branch/existing-branchno", async (req, res) => {
   try {
     const connection = await oracledb.getConnection({
@@ -211,7 +231,7 @@ app.get("/api/branch/:branchno", async (req, res) => {
 });
 
 app.post("/api/branch/open-a-branch", async (req, res) => {
-  const { branchno, street, city, postcode } = req.body;
+  const { branchNo, street, city, postcode } = req.body;
 
   try {
     const connection = await oracledb.getConnection({
@@ -225,7 +245,7 @@ app.post("/api/branch/open-a-branch", async (req, res) => {
          new_branch(:branchno, :street, :city, :postcode); 
        END;`,
       {
-        branchno,
+        branchNo,
         street,
         city,
         postcode,
@@ -241,6 +261,40 @@ app.post("/api/branch/open-a-branch", async (req, res) => {
   } catch (error) {
     console.error("Error executing query:", error);
     res.status(500).json({ error: "Failed to open a branch." });
+  }
+});
+
+app.put("/api/branch/:branchNo", async (req, res) => {
+  const { street, city, postcode } = req.body;
+  const { branchNo } = req.params;
+
+  try {
+    const connection = await oracledb.getConnection({
+      user: "dbs501_242v1a16",
+      password: "44393138",
+      connectString: "//myoracle12c.senecacollege.ca:1521/oracle12c",
+    });
+
+    const result = await connection.execute(
+      `UPDATE dh_branch SET street = :street, city = :city, postcode = :postcode WHERE branchno = :branchno`,
+      {
+        branchNo,
+        street,
+        city,
+        postcode,
+      },
+      {
+        autoCommit: true,
+      }
+    );
+
+    await connection.close();
+    console.log("Update result:", result);
+
+    res.status(200).json({ message: "Branch update successfully!" });
+  } catch (error) {
+    console.error("Error executing query:", error);
+    res.status(500).json({ error: "Failed to update staff" });
   }
 });
 

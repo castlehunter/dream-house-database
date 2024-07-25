@@ -5,20 +5,20 @@ function Confirm({ type }) {
   const [branchData, setBranchData] = useState(null);
   const [error, setError] = useState(null);
 
-  const { staffNo: branchNo } = useParams();
+  const { branchNo } = useParams();
 
   useEffect(() => {
     if (!branchNo) {
       return;
     }
 
-    async function fetchStaffData() {
+    async function fetchBranchData() {
       try {
         const response = await fetch(
-          `http://localhost:3900/api/staff/${branchNo}`
+          `http://localhost:3900/api/branch/${branchNo}`
         );
         if (!response.ok) {
-          throw new Error("Failed to fetch staff data");
+          throw new Error("Failed to fetch branch data");
         }
         const data = await response.json();
 
@@ -36,7 +36,7 @@ function Confirm({ type }) {
       }
     }
 
-    fetchStaffData();
+    fetchBranchData();
   }, [branchNo]);
 
   if (error) {
@@ -49,8 +49,8 @@ function Confirm({ type }) {
 
   return (
     <>
-      {type === "hire" && <h1>Staff Added</h1>}
-      {type === "edit" && <h1>Staff Updated</h1>}
+      {type === "hire" && <h1>Branch Added</h1>}
+      {type === "edit" && <h1>Branch Updated</h1>}
       <div>
         <p>Branch No.: {branchData.branchNo}</p>
         <p>Street: {branchData.street}</p>

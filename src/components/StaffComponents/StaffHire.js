@@ -28,7 +28,6 @@ function StaffHire() {
         );
         const data = await response.json();
         setExistingStaffNos(data);
-        setStaffNo(generateStaffNo());
       } catch (error) {
         console.error("Error fetching staff numbers:", error);
         setError("Failed to fetch existing staff numbers");
@@ -37,11 +36,11 @@ function StaffHire() {
     fetchStaffNos();
   }, []);
 
-  // useEffect(() => {
-  //   if (existingStaffNos.length > 0) {
-  //     setStaffNo(generateStaffNo());
-  //   }
-  // }, [existingStaffNos]);
+  useEffect(() => {
+    if (existingStaffNos.length > 0) {
+      setStaffNo(generateStaffNo());
+    }
+  }, [existingStaffNos]);
 
   function generateStaffNo() {
     const prefix = "S";

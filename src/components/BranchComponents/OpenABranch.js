@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "../Form.module.css";
+import { useNavigate } from "react-router-dom";
 
 function OpenABranch() {
   const [branchNo, setBranchNo] = useState("");
@@ -9,6 +10,7 @@ function OpenABranch() {
   const [error, setError] = useState(null);
   const [existingBranchNos, setExistingBranchNos] = useState([]);
 
+  const navigate = useNavigate();
   useEffect(() => {
     async function fetchExistingBranchno() {
       try {
@@ -47,13 +49,38 @@ function OpenABranch() {
     }
   }, [existingBranchNos]);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    // Add your form submission logic here
+
+    if (!street || !city || !postcode) {
+      alert("Please fill in all fields!");
+      return;
+    }
+
+    const newBranch = {
+      branchNo,
+      street,
+      city,
+      postcode,
+    };
+
+    try {
+      const response = await fetch(
+        "http://localhost:3900/api/branch/open-a-branch",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newBranch),
+        }
+      );
+    } catch (error) {
+      setError(error);
+    }
   }
 
-  function handleCancel() {
-    // Add your cancel logic here
+  function handleCancel(e) {
+    e.preventDefault();
+    navigate(-1);
   }
 
   return (

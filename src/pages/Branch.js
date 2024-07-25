@@ -6,8 +6,9 @@ import Sidebar from "../components/Sidebar";
 // import StaffList from "../components/StaffComponents/StaffList";
 
 const sidebarLinks = [
-  { linkName: "Identify Branch address", linkPath: "identify-branch-address" },
-  { linkName: "Open a branch", linkPath: "open-a-branch" },
+  { linkName: "Identify Branch Address", linkPath: "identify-branch-address" },
+  { linkName: "Branch List", linkPath: "branch-list" },
+  { linkName: "Open a Branch", linkPath: "open-a-branch" },
 ];
 
 function Branch() {
