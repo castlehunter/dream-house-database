@@ -1,4 +1,6 @@
 import { useState } from "react";
+import styles from "../Form.module.css";
+import Button from "../Button";
 
 function IdentifyBranchAddress() {
   const [branchNo, setBranchNo] = useState("");
@@ -9,7 +11,7 @@ function IdentifyBranchAddress() {
     e.preventDefault();
 
     if (!branchNo) {
-      alert("Please fill in branch number!");
+      alert("Please enter a branch number!");
       return;
     }
 
@@ -43,7 +45,8 @@ function IdentifyBranchAddress() {
     }
   }
 
-  function handleClear() {
+  function handleClear(e) {
+    e.preventDefault();
     setBranchNo("");
     setBranchInfo(null);
     setError(null);
@@ -52,12 +55,24 @@ function IdentifyBranchAddress() {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <label>Enter branch number: </label>
-        <input value={branchNo} onChange={(e) => setBranchNo(e.target.value)} />
-        <button type="submit">Search</button>
-        <button type="button" onClick={handleClear}>
-          Clear
-        </button>
+        <div className={styles.formRow}>
+          <div className={styles.formGroup}>
+            <label htmlFor="branchNo" className={styles.formLabel}>
+              Enter branch number:{" "}
+            </label>
+            <input
+              className={styles.formInput}
+              value={branchNo}
+              onChange={(e) => setBranchNo(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className={styles.formActions}>
+          <Button classType="submit">Search</Button>
+          <Button classType="cancel" onClick={handleClear}>
+            Clear
+          </Button>
+        </div>
       </form>
       {branchInfo ? (
         <div>

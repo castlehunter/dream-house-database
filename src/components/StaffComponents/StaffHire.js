@@ -27,6 +27,7 @@ function StaffHire() {
           "http://localhost:3900/api/staff/existing-staffno"
         );
         const data = await response.json();
+
         setExistingStaffNos(data);
       } catch (error) {
         console.error("Error fetching staff numbers:", error);
@@ -56,6 +57,10 @@ function StaffHire() {
     return staffNo;
   }
 
+  function isValidName(name) {
+    return /^[a-zA-Z]+$/.test(name);
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -73,6 +78,11 @@ function StaffHire() {
       !email
     ) {
       alert("Please fill in all fields!");
+      return;
+    }
+
+    if (!isValidName(firstName) || !isValidName(lastName)) {
+      alert("First name and last name should contain only letters");
       return;
     }
 

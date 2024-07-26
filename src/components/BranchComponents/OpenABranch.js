@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "../Form.module.css";
 import { useNavigate } from "react-router-dom";
+import Button from "../Button";
 
 function OpenABranch() {
   const [branchNo, setBranchNo] = useState("");
@@ -76,6 +77,7 @@ function OpenABranch() {
     } catch (error) {
       setError(error);
     }
+    navigate(`/branch/new-branch-confirmed/${branchNo}`);
   }
 
   function handleCancel(e) {
@@ -116,19 +118,17 @@ function OpenABranch() {
                 />
               </div>
 
-              <div className={styles.formRow}>
-                <div className={styles.formGroup}>
-                  <label htmlFor="city" className={styles.formLabel}>
-                    City
-                  </label>
-                  <input
-                    type="text"
-                    value={city}
-                    className={styles.formInput}
-                    placeholder="Enter city"
-                    onChange={(e) => setCity(e.target.value)}
-                  />
-                </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="city" className={styles.formLabel}>
+                  City
+                </label>
+                <input
+                  type="text"
+                  value={city}
+                  className={styles.formInput}
+                  placeholder="Enter city"
+                  onChange={(e) => setCity(e.target.value)}
+                />
               </div>
 
               <div className={styles.formGroup}>
@@ -143,13 +143,13 @@ function OpenABranch() {
                   onChange={(e) => setPostcode(e.target.value)}
                 />
               </div>
+            </div>
 
-              <div className={styles.formActions}>
-                <button classType="submit">Add</button>
-                <button classType="cancel" onClick={handleCancel}>
-                  Cancel
-                </button>
-              </div>
+            <div className={styles.formActions}>
+              <Button classType="submit">Open</Button>
+              <Button classType="cancel" onClick={handleCancel}>
+                Cancel
+              </Button>
             </div>
           </form>
           {error && <div>Error: {error}</div>}

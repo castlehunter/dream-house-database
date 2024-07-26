@@ -6,12 +6,17 @@ import StaffList from "./components/StaffComponents/StaffList";
 import StaffHire from "./components/StaffComponents/StaffHire";
 import Client from "./pages/Client";
 import StaffEdit from "./components/StaffComponents/StaffEdit";
-import Confirm from "./components/StaffComponents/Confirm";
+import StaffConfirm from "./components/StaffComponents/StaffConfirm";
 import Branch from "./pages/Branch";
 import IdentifyBranchAddress from "./components/BranchComponents/IdentifyBranchAddress";
 import BranchList from "./components/BranchComponents/BranchList";
 import OpenABranch from "./components/BranchComponents/OpenABranch";
 import BranchEdit from "./components/BranchComponents/BranchEdit";
+import BranchConfirm from "./components/BranchComponents/BranchConfirm";
+import ClientList from "./components/ClientComponents/ClientList";
+import ClientAdd from "./components/ClientComponents/ClientAdd";
+import ClientEdit from "./components/ClientComponents/ClientEdit";
+import ClientConfirm from "./components/ClientComponents/ClientConfirm";
 
 function App() {
   return (
@@ -24,12 +29,12 @@ function App() {
           <Route path="staff-hire" element={<StaffHire />} />
           <Route
             path="hire-confirmed/:staffNo"
-            element={<Confirm type="hire" />}
+            element={<StaffConfirm type="new" />}
           />
           <Route path="staff-edit/:staffNo" element={<StaffEdit />} />
           <Route
             path="edit-confirmed/:staffNo"
-            element={<Confirm type="edit" />}
+            element={<StaffConfirm type="edit" />}
           />
         </Route>
 
@@ -43,11 +48,28 @@ function App() {
           <Route path="branch-edit/:branchNo" element={<BranchEdit />} />
           <Route
             path="edit-confirmed/:branchNo"
-            element={<Confirm type="edit" />}
+            element={<BranchConfirm type="edit" />}
           />
           <Route path="open-a-branch" element={<OpenABranch />} />
+          <Route
+            path="new-branch-confirmed/:branchNo"
+            element={<BranchConfirm type="new" />}
+          />
         </Route>
-        <Route path="client" element={<Client />} />
+        <Route path="client" element={<Client />}>
+          <Route index element={<ClientList />} />
+          <Route path="client-list" element={<ClientList />} />
+          <Route path="client-add" element={<ClientAdd />} />
+          <Route
+            path="add-client-confirmed/:clientNo"
+            element={<ClientConfirm type="new" />}
+          />
+          <Route path="client-edit/:clientNo" element={<ClientEdit />} />
+          <Route
+            path="edit-confirmed/:clientNo"
+            element={<ClientConfirm type="edit" />}
+          />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

@@ -209,6 +209,7 @@ app.get("/api/branch/existing-branchno", async (req, res) => {
 });
 
 app.get("/api/branch/:branchno", async (req, res) => {
+  console.log("get branchno");
   try {
     const connection = await oracledb.getConnection({
       user: "dbs501_242v1a16",
@@ -295,6 +296,175 @@ app.put("/api/branch/:branchNo", async (req, res) => {
   } catch (error) {
     console.error("Error executing query:", error);
     res.status(500).json({ error: "Failed to update staff" });
+  }
+});
+
+app.get("/api/client/client-list", async (req, res) => {
+  try {
+    const connection = await oracledb.getConnection({
+      user: "dbs501_242v1a16",
+      password: "44393138",
+      connectString: "//myoracle12c.senecacollege.ca:1521/oracle12c",
+    });
+    const result = await connection.execute(
+      `SELECT clientno, fname, lname, telno, street, city, email, preftype, maxrent FROM dh_client`
+    );
+
+    await connection.close();
+
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error("Error fetching client list:", error);
+    res.status(500).json({ error: "Failed to fetch client list" });
+  }
+});
+
+app.get("/api/client/existing-clientno", async (req, res) => {
+  try {
+    const connection = await oracledb.getConnection({
+      user: "dbs501_242v1a16",
+      password: "44393138",
+      connectString: "//myoracle12c.senecacollege.ca:1521/oracle12c",
+    });
+
+    const result = await connection.execute(`SELECT clientno FROM dh_client`);
+
+    await connection.close();
+
+    res.status(200).json(result.rows.map((row) => row[0]));
+  } catch (error) {
+    console.error("Error fetching client list:", error);
+    res.status(500).json({ error: "Failed to fetch client list" });
+  }
+});
+
+app.get("/api/client/:clientNo", async (req, res) => {
+  try {
+    const connection = await oracledb.getConnection({
+      user: "dbs501_242v1a16",
+      password: "44393138",
+      connectString: "//myoracle12c.senecacollege.ca:1521/oracle12c",
+    });
+
+    const result = await connection.execute(
+      `SELECT clientno, fname, lname, telno, street, city, email, preftype, maxrent FROM dh_client WHERE clientno = :clientNo`,
+      [req.params.clientNo]
+    );
+
+    await connection.close();
+
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error("Error fetching client:", error);
+    res.status(500).json({ error: "Failed to fetch client" });
+  }
+});
+
+app.post("/api/client/client-add", async (req, res) => {
+  const {
+    clientNo,
+    fname,
+    lname,
+    telno,
+    street,
+    city,
+    email,
+    preftype,
+    maxrent,
+  } = req.body;
+
+  try {
+    const connection = await oracledb.getConnection({
+      user: "dbs501_242v1a16",
+      password: "44393138",
+      connectString: "//myoracle12c.senecacollege.ca:1521/oracle12c",
+    });
+
+    // Define the SQL query for insertion
+    const sql = `
+      INSERT INTO dh_client (clientNo, fname, lname, telno, street, city, email, preftype, maxrent)
+      VALUES (:clientNo, :fname, :lname, :telno, :street, :city, :email, :preftype, :maxrent)
+    `;
+
+    // Execute the SQL query
+    await connection.execute(
+      sql,
+      {
+        clientNo,
+        fname,
+        lname,
+        telno,
+        street,
+        city,
+        email,
+        preftype,
+        maxrent,
+      },
+      {
+        autoCommit: true,
+      }
+    );
+
+    await connection.close();
+
+    res.status(200).json({ message: "Client added successfully!" });
+  } catch (error) {
+    console.error("Error adding client:", error);
+    res.status(500).json({ error: "Failed to add client" });
+  }
+});
+
+app.put("/api/client/:clientNo", async (req, res) => {
+  const { fname, lname, telno, street, city, email, preftype, maxrent } =
+    req.body;
+  const { clientNo } = req.params;
+
+  try {
+    const connection = await oracledb.getConnection({
+      user: "dbs501_242v1a16",
+      password: "44393138",
+      connectString: "//myoracle12c.senecacollege.ca:1521/oracle12c",
+    });
+
+    // SQL query to update all fields including first name and last name
+    const sql = `
+      UPDATE dh_client
+      SET fname = :fname,
+          lname = :lname,
+          telno = :telno,
+          street = :street,
+          city = :city,
+          email = :email,
+          preftype = :preftype,
+          maxrent = :maxrent
+      WHERE clientNo = :clientNo
+    `;
+
+    // Execute the SQL query
+    const result = await connection.execute(
+      sql,
+      {
+        fname,
+        lname,
+        telno,
+        street,
+        city,
+        email,
+        preftype,
+        maxrent,
+        clientNo,
+      },
+      {
+        autoCommit: true,
+      }
+    );
+
+    await connection.close();
+
+    res.status(200).json({ message: "Client updated successfully!" });
+  } catch (error) {
+    console.error("Error updating client:", error);
+    res.status(500).json({ error: "Failed to update client" });
   }
 });
 

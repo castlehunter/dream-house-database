@@ -4,6 +4,7 @@ import styles from "../Form.module.css";
 import Button from "../Button";
 
 function StaffEdit() {
+  const [staffNo, setStaffNo] = useState(""); // Add this line
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [position, setPosition] = useState("");
@@ -15,14 +16,14 @@ function StaffEdit() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState(null);
 
-  const { staffNo } = useParams();
+  const { staffNo: urlStaffNo } = useParams(); // Rename to avoid conflict
   const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchStaffData() {
       try {
         const response = await fetch(
-          `http://localhost:3900/api/staff/${staffNo}`
+          `http://localhost:3900/api/staff/${urlStaffNo}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch staff data");
@@ -48,6 +49,7 @@ function StaffEdit() {
         }
 
         const {
+          staffNo,
           fname,
           lname,
           position,
@@ -59,6 +61,7 @@ function StaffEdit() {
           email,
         } = transformedData[0];
 
+        setStaffNo(staffNo); // Add this line
         setFirstName(fname);
         setLastName(lname);
         setPosition(position);
@@ -74,7 +77,7 @@ function StaffEdit() {
     }
 
     fetchStaffData();
-  }, [staffNo]);
+  }, [urlStaffNo]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -131,6 +134,19 @@ function StaffEdit() {
           <form className={styles.staffForm} onSubmit={handleSubmit}>
             <div className={styles.formRow}>
               <div className={styles.formGroup}>
+                <label htmlFor="staffNo" className={styles.formLabel}>
+                  Staff Number
+                </label>
+                <input
+                  type="text"
+                  className={styles.formInput}
+                  value={staffNo}
+                  onChange={(e) => setStaffNo(e.target.value)}
+                  disabled
+                />
+              </div>
+
+              <div className={styles.formGroup}>
                 <label htmlFor="firstName" className={styles.formLabel}>
                   First Name
                 </label>
@@ -139,7 +155,7 @@ function StaffEdit() {
                   className={styles.formInput}
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
-                  disabled="true"
+                  disabled
                 />
               </div>
 
@@ -152,7 +168,7 @@ function StaffEdit() {
                   className={styles.formInput}
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
-                  disabled="true"
+                  disabled
                 />
               </div>
             </div>
@@ -168,7 +184,7 @@ function StaffEdit() {
                   className={styles.formInput}
                   placeholder="Enter position"
                   onChange={(e) => setPosition(e.target.value)}
-                  disabled="true"
+                  disabled
                 />
               </div>
 
@@ -178,7 +194,7 @@ function StaffEdit() {
                 </label>
                 <div className={styles.inputWithIcon}>
                   <select
-                    disabled="true"
+                    disabled
                     value={branchNo}
                     className={styles.formInput}
                     onChange={(e) => setBranchNo(e.target.value)}
@@ -215,7 +231,7 @@ function StaffEdit() {
                     value={dob}
                     className={styles.formInput}
                     onChange={(e) => setDob(e.target.value)}
-                    disabled="true"
+                    disabled
                   />
                 </div>
               </div>
@@ -257,7 +273,7 @@ function StaffEdit() {
                   placeholder="Enter mobile phone"
                   value={mobile}
                   onChange={(e) => setMobile(e.target.value)}
-                  disabled="true"
+                  disabled
                 />
               </div>
             </div>

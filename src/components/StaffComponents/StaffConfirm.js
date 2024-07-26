@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-function Confirm({ type }) {
+function StaffConfirm({ type }) {
   const [staffData, setStaffData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -75,4 +75,4 @@ function Confirm({ type }) {
   );
 }
 
-export default Confirm;
+export default StaffConfirm;

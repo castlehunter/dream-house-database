@@ -1,17 +1,16 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Button from "../Button";
 
-function Confirm({ type }) {
+function BranchConfirm({ type }) {
   const [branchData, setBranchData] = useState(null);
   const [error, setError] = useState(null);
-
   const { branchNo } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!branchNo) {
-      return;
-    }
-
+    console.log("UE Brancho is", branchNo);
+    if (!branchNo) return;
     async function fetchBranchData() {
       try {
         const response = await fetch(
@@ -22,14 +21,18 @@ function Confirm({ type }) {
         }
         const data = await response.json();
 
-        const branchArray = data[0];
+        if (data.length === 0) {
+          throw new Error("No branch data found");
+        }
 
+        const branchArray = data[0];
         const transformedData = {
           branchNo: branchArray[0],
           street: branchArray[1],
           city: branchArray[2],
           postcode: branchArray[3],
         };
+
         setBranchData(transformedData);
       } catch (error) {
         setError(error.message);
@@ -49,7 +52,7 @@ function Confirm({ type }) {
 
   return (
     <>
-      {type === "hire" && <h1>Branch Added</h1>}
+      {type === "new" && <h1>Branch Added</h1>}
       {type === "edit" && <h1>Branch Updated</h1>}
       <div>
         <p>Branch No.: {branchData.branchNo}</p>
@@ -57,11 +60,13 @@ function Confirm({ type }) {
         <p>City: {branchData.city}</p>
         <p>Postal Code: {branchData.postcode}</p>
       </div>
-      <Link to="/branch/identify-branch-address">
-        Go to Identify Branch Address page
-      </Link>
+
+      <Button onClick={() => navigate("/branch/branch-list")}>
+        Go to branch list
+      </Button>
+      <Button onClick={() => navigate(-1)}>Add another branch</Button>
     </>
   );
 }
 
-export default Confirm;
+export default BranchConfirm;
