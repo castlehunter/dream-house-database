@@ -5,6 +5,11 @@ import React from "react";
 import styles from "../Table.module.css";
 import { Link } from "react-router-dom";
 
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString(); // 默认格式为 MM/DD/YYYY
+}
+
 function StaffTable({ staffData, rowsPerPage, currPage }) {
   const currData = staffData.slice(
     (currPage - 1) * rowsPerPage,
@@ -49,7 +54,7 @@ function StaffTable({ staffData, rowsPerPage, currPage }) {
               <td>{staff.lname}</td>
               <td>{staff.position}</td>
               <td>{staff.sex}</td>
-              <td>{staff.dob}</td>
+              <td>{formatDate(staff.dob)}</td>
               <td>{staff.salary}</td>
               <td>{staff.branchNo}</td>
               <td>{staff.telephone}</td>

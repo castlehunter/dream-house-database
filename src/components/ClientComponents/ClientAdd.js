@@ -54,6 +54,9 @@ function ClientAdd() {
     return clientNo;
   }
 
+  function isValidName(name) {
+    return /^[a-zA-Z]+$/.test(name);
+  }
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -69,6 +72,11 @@ function ClientAdd() {
       !maxrent
     ) {
       alert("Please fill in all fields!");
+      return;
+    }
+
+    if (!isValidName(firstName) || !isValidName(lastName)) {
+      alert("First name and last name should contain only letters");
       return;
     }
 
