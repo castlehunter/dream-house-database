@@ -75,9 +75,6 @@ function StaffList() {
             onPageChange={handlePageChange}
           />
         </section>
-        <footer className={styles.footer}>
-          Copyright © 2024 Dream Home Real Estate. All Rights Reserved
-        </footer>
       </main>
     </div>
   );
