@@ -11,9 +11,9 @@ const navItems = [
   { to: "/client", label: "Client" },
 ];
 
-function PageNav() {
+function PageNav({ bgColor = "" }) {
   return (
-    <nav className={styles.navigationBar}>
+    <nav className={styles.navigationBar} style={{ backgroundColor: bgColor }}>
       <div className={styles.logo}>
         <img src={logo} alt="logo" />
         <span className={styles.logoText}>Dream Home</span>
@@ -34,21 +34,6 @@ function PageNav() {
 
       <Button>Sign Out</Button>
     </nav>
-
-    // <nav className={styles.nav}>
-    //   <Logo />
-    //   <ul>
-    //     <li>
-    //       <NavLink to="/staff">Staff</NavLink>
-    //     </li>
-    //     <li>
-    //       <NavLink to="/branch">Branch</NavLink>
-    //     </li>
-    //     <li>
-    //       <NavLink to="/client">Client</NavLink>
-    //     </li>
-    //   </ul>
-    // </nav>
   );
 }
 

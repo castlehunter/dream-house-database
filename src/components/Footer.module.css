@@ -3,6 +3,7 @@
 .footer {
   display: flex;
   height: 100px;
+  width: 100vw;
   /* gap: 20px; */
   font-size: 15px;
   color: #fff;
@@ -10,5 +11,5 @@
   letter-spacing: -0.38px;
   justify-content: center;
   align-items: center;
-  background-color: #000;
+  /* background-color: #171821; */
 }

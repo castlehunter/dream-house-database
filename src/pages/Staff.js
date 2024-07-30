@@ -14,7 +14,8 @@ function Staff() {
   return (
     <Layout>
       <main className={styles.staff}>
-        <Sidebar sidebarLinks={sidebarLinks} />
+        {/* <Sidebar sidebarLinks={sidebarLinks} /> */}
+        
         <div className={styles.mainContent}>
           <Outlet />
         </div>

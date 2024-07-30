@@ -1,17 +1,17 @@
 import React from "react";
 import styles from "./HomePage.module.css";
-import Layout from "../components/Layout";
 import PageNav from "../components/PageNav";
+import Footer from "../components/Footer";
 
 function HomePage() {
   return (
-    <Layout>
-      <main className={styles.homepage}>
-        <section>
-          <h1>Dream Home Real Estate</h1>
-        </section>
-      </main>
-    </Layout>
+    <main className={styles.homepage}>
+      <PageNav bgColor="#000" />
+      <section>
+        <h1>Dream Home Real Estate</h1>
+      </section>
+      <Footer />
+    </main>
   );
 }
 
