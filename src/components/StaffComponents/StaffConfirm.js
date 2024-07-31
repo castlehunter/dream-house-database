@@ -56,7 +56,7 @@ function StaffConfirm({ type }) {
 
   return (
     <>
-      {type === "hire" && <h1>Staff Added</h1>}
+      {type === "new" && <h1>Staff Added</h1>}
       {type === "edit" && <h1>Staff Updated</h1>}
       <div>
         <p>First Name: {staffData.firstName}</p>

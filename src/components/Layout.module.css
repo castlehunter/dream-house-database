@@ -1,15 +1,21 @@
 .layout {
   color: rgb(214, 214, 214);
   height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: row;
   background-color: #ebdfd7;
 }
 .sidebar {
-  flex: 0 0 200px; /* 固定宽度为 200px */
-}
-.dashboard {
-  flex: 1; /* 占用剩余的宽度 */
+  flex: 0 0 200px;
+  height: 100vh;
+  /* background-color: #171821;
+  border-right: 1px solid #cecbcbf3;
   display: flex;
   flex-direction: column;
+  align-items: center; */
+}
+.dashboard {
+  flex: 1; /* 占用剩余的80%宽度 */
+  height: 100vh;
 }

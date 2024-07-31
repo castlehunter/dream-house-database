@@ -1,7 +1,6 @@
 .staffListContainer {
   display: flex;
   gap: 20px;
-  background-color: #f8f9fd;
   background-color: #ebdfd7;
 }
 
@@ -25,7 +24,7 @@
   margin-top: 72px;
 }
 
-@media (max-width: 991px) {
+/* @media (max-width: 991px) {
   .mainContent {
     padding-right: 20px;
   }
@@ -33,4 +32,4 @@
   .footer {
     margin-top: 40px;
   }
-}
+} */
