@@ -6,7 +6,7 @@ import Pagination from "../Pagination";
 function BranchList() {
   const [branchData, setBranchData] = useState([]);
   const [error, setError] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(false);
   const [currPage, setCurrPage] = useState(1);
   const rowsPerPage = 5;
   const totalPages = Math.ceil(branchData.length / rowsPerPage);
@@ -18,6 +18,8 @@ function BranchList() {
   useEffect(() => {
     async function fetchStaffData() {
       try {
+        setIsLoading(true);
+        setError("");
         const response = await fetch(
           "http://localhost:3900/api/branch/branch-list"
         );
@@ -37,6 +39,8 @@ function BranchList() {
       } catch (error) {
         console.error("Error fetching staff list:", error);
         setError(error.message);
+      } finally {
+        setIsLoading(false);
       }
     }
 
@@ -55,6 +59,7 @@ function BranchList() {
         <section className={styles.contentWrapper}>
           {/* <SearchFilter totalStaff={250} /> */}
           <BranchTable
+            isLoading={isLoading}
             branchData={branchData}
             rowsPerPage={rowsPerPage}
             currPage={currPage}

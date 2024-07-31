@@ -6,7 +6,7 @@ import Pagination from "../Pagination";
 function ClientList() {
   const [clientData, setClientData] = useState([]);
   const [error, setError] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(false);
   const [currPage, setCurrPage] = useState(1);
   const rowsPerPage = 5;
   const totalPages = Math.ceil(clientData.length / rowsPerPage);
@@ -18,6 +18,8 @@ function ClientList() {
   useEffect(() => {
     async function fetchClientData() {
       try {
+        setIsLoading(true);
+        setError("");
         const response = await fetch(
           "http://localhost:3900/api/client/client-list"
         );
@@ -43,6 +45,8 @@ function ClientList() {
       } catch (error) {
         console.error("Error fetching client list:", error);
         setError(error.message);
+      } finally {
+        setIsLoading(false);
       }
     }
 
@@ -61,6 +65,7 @@ function ClientList() {
         <section className={styles.contentWrapper}>
           {/* <SearchFilter totalStaff={250} /> */}
           <ClientTable
+            isLoading={isLoading}
             clientData={clientData}
             rowsPerPage={rowsPerPage}
             currPage={currPage}

@@ -1,8 +1,9 @@
 import React from "react";
 import styles from "../Table.module.css";
 import { Link } from "react-router-dom";
+import Loader from "../Loader";
 
-function BranchTable({ branchData, rowsPerPage, currPage }) {
+function BranchTable({ branchData, rowsPerPage, currPage, isLoading }) {
   const currData = branchData.slice(
     (currPage - 1) * rowsPerPage,
     currPage * rowsPerPage
@@ -11,7 +12,7 @@ function BranchTable({ branchData, rowsPerPage, currPage }) {
   return (
     <section className={styles.staffTableContainer}>
       <header className={styles.tableHeader}>
-        <h2 className={styles.tableTitle}>All Staff</h2>
+        <h2 className={styles.tableTitle}>All Branches</h2>
         <div className={styles.entriesPerPage}>
           <span>Showing</span>
           <span className={styles.entriesNumber}>{rowsPerPage}</span>
@@ -29,26 +30,30 @@ function BranchTable({ branchData, rowsPerPage, currPage }) {
             <th>Postcode</th>
           </tr>
         </thead>
-        <tbody>
-          {currData.map((branch, index) => (
-            <tr key={branch.branchNo}>
-              <td>{index + 1 + (currPage - 1) * rowsPerPage}</td>
-              <td>{branch.branchNo}</td>
-              <td>{branch.street}</td>
-              <td>{branch.city}</td>
-              <td>{branch.postcode}</td>
-              <td>{branch.sex}</td>
-              <td>
-                <Link
-                  to={`/branch/branch-edit/${branch.branchNo}`}
-                  className={styles.editButton}
-                >
-                  Edit
-                </Link>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <tbody>
+            {currData.map((branch, index) => (
+              <tr key={branch.branchNo}>
+                <td>{index + 1 + (currPage - 1) * rowsPerPage}</td>
+                <td>{branch.branchNo}</td>
+                <td>{branch.street}</td>
+                <td>{branch.city}</td>
+                <td>{branch.postcode}</td>
+                <td>{branch.sex}</td>
+                <td>
+                  <Link
+                    to={`/branch/branch-edit/${branch.branchNo}`}
+                    className={styles.editButton}
+                  >
+                    Edit
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        )}
       </table>
     </section>
   );

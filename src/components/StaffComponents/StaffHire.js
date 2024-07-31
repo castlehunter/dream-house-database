@@ -18,6 +18,8 @@ function StaffHire() {
   const [error, setError] = useState(null);
 
   const [existingStaffNos, setExistingStaffNos] = useState([]);
+  const [existingBranchNos, setExistingBranchNos] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,14 +40,31 @@ function StaffHire() {
   }, []);
 
   useEffect(() => {
+    async function fetchBranchNos() {
+      try {
+        const response = await fetch(
+          "http://localhost:3900/api/branch/existing-branchno"
+        );
+        const data = await response.json();
+
+        setExistingBranchNos(data);
+      } catch (error) {
+        console.error("Error fetching exisiting branch numbers:", error);
+        setError("Failed to fetch existing branch numbers");
+      }
+    }
+    fetchBranchNos();
+  }, []);
+
+  useEffect(() => {
     if (existingStaffNos.length > 0) {
       setStaffNo(generateStaffNo());
     }
   }, [existingStaffNos]);
 
   function generateStaffNo() {
-    const prefix = "S";
-    let number = 2;
+    const prefix = "T";
+    let number = 1;
     let staffNo;
 
     do {
@@ -59,6 +78,14 @@ function StaffHire() {
 
   function isValidName(name) {
     return /^[a-zA-Z]+$/.test(name);
+  }
+
+  function isValidPhoneNumber(number) {
+    return /^[0-9]+$/.test(number);
+  }
+
+  function isValidEmail(email) {
+    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
   }
 
   async function handleSubmit(e) {
@@ -83,6 +110,18 @@ function StaffHire() {
 
     if (!isValidName(firstName) || !isValidName(lastName)) {
       alert("First name and last name should contain only letters");
+      return;
+    }
+
+    if (!isValidPhoneNumber(telephone) || !isValidPhoneNumber(mobile)) {
+      alert("Telephone and mobile must contain only numbers");
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      alert(
+        "Email should be in the format of letters and/or numbers followed by @"
+      );
       return;
     }
 
@@ -194,13 +233,19 @@ function StaffHire() {
                 <label htmlFor="sex" className={styles.formLabel}>
                   Sex
                 </label>
-                <input
-                  type="text"
+                <select
                   value={sex}
                   className={styles.formInput}
-                  placeholder="Enter Sex"
                   onChange={(e) => setSex(e.target.value)}
-                />
+                >
+                  <option value="">Select Sex</option>
+                  <option value="F" key="F">
+                    F
+                  </option>
+                  <option value="M" key="M">
+                    M
+                  </option>
+                </select>
               </div>
 
               <div className={styles.formGroup}>
@@ -213,22 +258,12 @@ function StaffHire() {
                     className={styles.formInput}
                     onChange={(e) => setBranchNo(e.target.value)}
                   >
-                    <option value="" key="select"></option>
-                    <option value="B002" key="B002">
-                      B002
-                    </option>
-                    <option value="B003" key="B003">
-                      B003
-                    </option>
-                    <option value="B004" key="B004">
-                      B004
-                    </option>
-                    <option value="B005" key="B005">
-                      B005
-                    </option>
-                    <option value="B007" key="B007">
-                      B007
-                    </option>
+                    <option value="">Select Branch No</option>
+                    {existingBranchNos.map((branchno) => (
+                      <option value={branchno} key={branchno}>
+                        {branchno}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -297,7 +332,7 @@ function StaffHire() {
                   Email
                 </label>
                 <input
-                  type="email"
+                  type="text"
                   className={styles.formInput}
                   placeholder="Enter email address"
                   value={email}

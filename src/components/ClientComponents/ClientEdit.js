@@ -74,11 +74,40 @@ function ClientEdit() {
     fetchClientData();
   }, [paramClientNo]);
 
+  function isValidName(name) {
+    return /^[a-zA-Z]+$/.test(name);
+  }
+
+  // function isValidPhoneNumber(number) {
+  //   return /^[0-9]+$/.test(number);
+  // }
+
+  function isValidEmail(email) {
+    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
 
     if (!telephone || !email) {
       alert("Fields cannot be blank!");
+      return;
+    }
+
+    if (!isValidName(firstName) || !isValidName(lastName)) {
+      alert("First name and last name should contain only letters");
+      return;
+    }
+
+    // if (!isValidPhoneNumber(telephone)) {
+    //   alert("Telephone must contain only numbers");
+    //   return;
+    // }
+
+    if (!isValidEmail(email)) {
+      alert(
+        "Email should be in the format of letters and/or numbers followed by @"
+      );
       return;
     }
 
@@ -212,7 +241,7 @@ function ClientEdit() {
                   Email
                 </label>
                 <input
-                  type="email"
+                  type="text"
                   className={styles.formInput}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}

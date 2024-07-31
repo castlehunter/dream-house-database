@@ -9,13 +9,14 @@ function StaffEdit() {
   const [lastName, setLastName] = useState("");
   const [position, setPosition] = useState("");
   const [branchNo, setBranchNo] = useState("");
+  const [sex, setSex] = useState("");
   const [dob, setDob] = useState("");
   const [salary, setSalary] = useState(0);
   const [telephone, setTelephone] = useState("");
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState(null);
-
+  const [existingBranchNos, setExistingBranchNos] = useState([]);
   const { staffNo: urlStaffNo } = useParams(); // Rename to avoid conflict
   const navigate = useNavigate();
 
@@ -36,7 +37,7 @@ function StaffEdit() {
           lname: staff[2],
           position: staff[3],
           sex: staff[4],
-          dob: staff[5],
+          dob: staff[5].slice(0, 10),
           salary: staff[6],
           branchNo: staff[7],
           telephone: staff[8],
@@ -54,6 +55,7 @@ function StaffEdit() {
           lname,
           position,
           dob,
+          sex,
           salary,
           branchNo,
           telephone,
@@ -66,6 +68,7 @@ function StaffEdit() {
         setLastName(lname);
         setPosition(position);
         setBranchNo(branchNo);
+        setSex(sex);
         setDob(dob);
         setSalary(salary);
         setTelephone(telephone);
@@ -79,11 +82,48 @@ function StaffEdit() {
     fetchStaffData();
   }, [urlStaffNo]);
 
+  useEffect(() => {
+    async function fetchBranchNos() {
+      try {
+        const response = await fetch(
+          "http://localhost:3900/api/branch/existing-branchno"
+        );
+        const data = await response.json();
+
+        setExistingBranchNos(data);
+      } catch (error) {
+        console.error("Error fetching exisiting branch numbers:", error);
+        setError("Failed to fetch existing branch numbers");
+      }
+    }
+    fetchBranchNos();
+  }, []);
+
+  function isValidPhoneNumber(number) {
+    return /^[0-9]+$/.test(number);
+  }
+
+  function isValidEmail(email) {
+    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
 
     if (!salary || !telephone || !email) {
       alert("Fields cannot be blank!");
+      return;
+    }
+
+    if (!isValidPhoneNumber(telephone) || !isValidPhoneNumber(mobile)) {
+      alert("Telephone and mobile must contain only numbers");
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      alert(
+        "Email should be in the format of letters and/or numbers followed by @"
+      );
       return;
     }
 
@@ -93,8 +133,6 @@ function StaffEdit() {
       telephone,
       email,
     };
-
-    console.log("Sending data:", updatedStaff); // Add this line to check the data
 
     try {
       const response = await fetch(
@@ -189,6 +227,21 @@ function StaffEdit() {
               </div>
 
               <div className={styles.formGroup}>
+                <label htmlFor="sex" className={styles.formLabel}>
+                  Sex
+                </label>
+                <div className={styles.inputWithIcon}>
+                  <input
+                    type="text"
+                    value={sex}
+                    className={styles.formInput}
+                    // onChange={(e) => setDob(e.target.value)}
+                    disabled
+                  />
+                </div>
+              </div>
+
+              <div className={styles.formGroup}>
                 <label htmlFor="branchNumber" className={styles.formLabel}>
                   Branch Number
                 </label>
@@ -199,22 +252,12 @@ function StaffEdit() {
                     className={styles.formInput}
                     onChange={(e) => setBranchNo(e.target.value)}
                   >
-                    <option value="" key="select"></option>
-                    <option value="B002" key="B002">
-                      B002
-                    </option>
-                    <option value="B003" key="B003">
-                      B003
-                    </option>
-                    <option value="B004" key="B004">
-                      B004
-                    </option>
-                    <option value="B005" key="B005">
-                      B005
-                    </option>
-                    <option value="B007" key="B007">
-                      B007
-                    </option>
+                    <option value="">Select Branch No</option>
+                    {existingBranchNos.map((branchno) => (
+                      <option value={branchno} key={branchno}>
+                        {branchno}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -284,7 +327,7 @@ function StaffEdit() {
                   Email
                 </label>
                 <input
-                  type="email"
+                  type="text"
                   className={styles.formInput}
                   placeholder="Enter email address"
                   value={email}

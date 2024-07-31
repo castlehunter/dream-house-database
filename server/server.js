@@ -36,7 +36,7 @@ app.get("/api/staff/staff-list", async (req, res) => {
       connectString: "//myoracle12c.senecacollege.ca:1521/oracle12c",
     });
     const result = await connection.execute(
-      `SELECT staffno, fname, lname, position,sex,dob,salary,branchno,telephone,mobile,email FROM dh_staff`
+      `SELECT staffno, fname, lname, position,sex,dob,salary,branchno,telephone,mobile,email FROM dh_staff ORDER BY staffno`
     );
 
     await connection.close();
@@ -57,7 +57,7 @@ app.get("/api/staff/:staffno", async (req, res) => {
     });
 
     const result = await connection.execute(
-      `SELECT staffno, fname, lname, position, sex, dob,salary,branchno,telephone,mobile,email FROM dh_staff WHERE staffno = :placeHolder`,
+      `SELECT staffno, fname, lname, position, sex, dob, salary, branchno, telephone, mobile, email FROM dh_staff WHERE staffno = :placeHolder`,
       [req.params.staffno]
     );
 
@@ -177,7 +177,7 @@ app.get("/api/branch/branch-list", async (req, res) => {
       connectString: "//myoracle12c.senecacollege.ca:1521/oracle12c",
     });
     const result = await connection.execute(
-      `SELECT branchno, street, city, postcode FROM dh_branch`
+      `SELECT branchno, street, city, postcode FROM dh_branch ORDER BY branchno`
     );
 
     await connection.close();
@@ -209,7 +209,6 @@ app.get("/api/branch/existing-branchno", async (req, res) => {
 });
 
 app.get("/api/branch/:branchno", async (req, res) => {
-  console.log("get branchno");
   try {
     const connection = await oracledb.getConnection({
       user: "dbs501_242v1a16",
@@ -307,7 +306,7 @@ app.get("/api/client/client-list", async (req, res) => {
       connectString: "//myoracle12c.senecacollege.ca:1521/oracle12c",
     });
     const result = await connection.execute(
-      `SELECT clientno, fname, lname, telno, street, city, email, preftype, maxrent FROM dh_client`
+      `SELECT clientno, fname, lname, telno, street, city, email, preftype, maxrent FROM dh_client ORDER BY clientno`
     );
 
     await connection.close();

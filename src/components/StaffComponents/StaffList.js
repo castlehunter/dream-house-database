@@ -6,7 +6,7 @@ import Pagination from "../Pagination";
 function StaffList() {
   const [staffData, setStaffData] = useState([]);
   const [error, setError] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(false);
   const [currPage, setCurrPage] = useState(1);
   const rowsPerPage = 5;
   const totalPages = Math.ceil(staffData.length / rowsPerPage);
@@ -18,9 +18,12 @@ function StaffList() {
   useEffect(() => {
     async function fetchStaffData() {
       try {
+        setIsLoading(true);
+        setError("");
         const response = await fetch(
           "http://localhost:3900/api/staff/staff-list"
         );
+
         if (!response.ok) {
           throw new Error("Failed to fetch staff list");
         }
@@ -47,6 +50,8 @@ function StaffList() {
       } catch (error) {
         console.error("Error fetching staff list:", error);
         setError(error.message);
+      } finally {
+        setIsLoading(false);
       }
     }
 
@@ -68,6 +73,7 @@ function StaffList() {
             staffData={staffData}
             rowsPerPage={rowsPerPage}
             currPage={currPage}
+            isLoading={isLoading}
           />
           <Pagination
             totalPages={totalPages}

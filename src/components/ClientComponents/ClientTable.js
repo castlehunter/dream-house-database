@@ -4,8 +4,9 @@
 import React from "react";
 import styles from "../Table.module.css";
 import { Link } from "react-router-dom";
+import Loader from "../Loader";
 
-function ClientTable({ clientData, rowsPerPage, currPage }) {
+function ClientTable({ clientData, rowsPerPage, currPage, isLoading }) {
   const currData = clientData.slice(
     (currPage - 1) * rowsPerPage,
     currPage * rowsPerPage
@@ -37,30 +38,34 @@ function ClientTable({ clientData, rowsPerPage, currPage }) {
             <th>Max Rent</th>
           </tr>
         </thead>
-        <tbody>
-          {currData.map((client, index) => (
-            <tr key={client.clientNo}>
-              <td>{index + 1 + (currPage - 1) * rowsPerPage}</td>
-              <td>{client.clientNo}</td>
-              <td>{client.fname}</td>
-              <td>{client.lname}</td>
-              <td>{client.telno}</td>
-              <td>{client.street}</td>
-              <td>{client.city}</td>
-              <td>{client.email}</td>
-              <td>{client.preftype}</td>
-              <td>{client.maxrent}</td>
-              <td>
-                <Link
-                  to={`/client/client-edit/${client.clientNo}`}
-                  className={styles.editButton}
-                >
-                  Edit
-                </Link>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <tbody>
+            {currData.map((client, index) => (
+              <tr key={client.clientNo}>
+                <td>{index + 1 + (currPage - 1) * rowsPerPage}</td>
+                <td>{client.clientNo}</td>
+                <td>{client.fname}</td>
+                <td>{client.lname}</td>
+                <td>{client.telno}</td>
+                <td>{client.street}</td>
+                <td>{client.city}</td>
+                <td>{client.email}</td>
+                <td>{client.preftype}</td>
+                <td>{client.maxrent}</td>
+                <td>
+                  <Link
+                    to={`/client/client-edit/${client.clientNo}`}
+                    className={styles.editButton}
+                  >
+                    Edit
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        )}
       </table>
     </section>
   );

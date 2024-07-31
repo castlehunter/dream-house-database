@@ -21,6 +21,7 @@ function ClientAdd() {
   useEffect(() => {
     async function fetchClientNos() {
       try {
+        setError("");
         const response = await fetch(
           "http://localhost:3900/api/client/existing-clientno"
         );
@@ -41,7 +42,7 @@ function ClientAdd() {
   }, [existingClientNos]);
 
   function generateClientNo() {
-    const prefix = "C";
+    const prefix = "D";
     let number = 1;
     let clientNo;
 
@@ -57,6 +58,15 @@ function ClientAdd() {
   function isValidName(name) {
     return /^[a-zA-Z]+$/.test(name);
   }
+
+  // function isValidPhoneNumber(number) {
+  //   return /^[0-9]+$/.test(number);
+  // }
+
+  function isValidEmail(email) {
+    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -77,6 +87,18 @@ function ClientAdd() {
 
     if (!isValidName(firstName) || !isValidName(lastName)) {
       alert("First name and last name should contain only letters");
+      return;
+    }
+
+    // if (!isValidPhoneNumber(telno)) {
+    //   alert("Telephone must contain only numbers");
+    //   return;
+    // }
+
+    if (!isValidEmail(email)) {
+      alert(
+        "Email should be in the format of letters and/or numbers followed by @"
+      );
       return;
     }
 
@@ -226,13 +248,18 @@ function ClientAdd() {
                 <label htmlFor="preftype" className={styles.formLabel}>
                   Preferred Type
                 </label>
-                <input
-                  type="text"
+                <select
                   value={preftype}
                   className={styles.formInput}
-                  placeholder="Enter preferred type"
                   onChange={(e) => setPreftype(e.target.value)}
-                />
+                >
+                  <option value="house" key="house">
+                    House
+                  </option>
+                  <option value="flat" key="flat">
+                    Flat
+                  </option>
+                </select>
               </div>
 
               <div className={styles.formGroup}>

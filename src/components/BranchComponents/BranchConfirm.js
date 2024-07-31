@@ -64,7 +64,6 @@ function BranchConfirm({ type }) {
       <Button onClick={() => navigate("/branch/branch-list")}>
         Go to branch list
       </Button>
-      <Button onClick={() => navigate(-1)}>Add another branch</Button>
     </>
   );
 }

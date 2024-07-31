@@ -1,13 +1,14 @@
 import React from "react";
 import styles from "../Table.module.css";
 import { Link } from "react-router-dom";
+import Loader from "../Loader";
 
 function formatDate(dateString) {
   const date = new Date(dateString);
-  return date.toLocaleDateString(); // 默认格式为 MM/DD/YYYY
+  return date.toLocaleDateString();
 }
 
-function StaffTable({ staffData, rowsPerPage, currPage }) {
+function StaffTable({ staffData, rowsPerPage, currPage, isLoading }) {
   const currData = staffData.slice(
     (currPage - 1) * rowsPerPage,
     currPage * rowsPerPage
@@ -42,32 +43,37 @@ function StaffTable({ staffData, rowsPerPage, currPage }) {
             <th>Action</th>
           </tr>
         </thead>
-        <tbody>
-          {currData.map((staff, index) => (
-            <tr key={staff.staffNo}>
-              <td>{index + 1 + (currPage - 1) * rowsPerPage}</td>
-              <td>{staff.staffNo}</td>
-              <td>{staff.fname}</td>
-              <td>{staff.lname}</td>
-              <td>{staff.position}</td>
-              <td>{staff.sex}</td>
-              <td>{formatDate(staff.dob)}</td>
-              <td>{staff.salary}</td>
-              <td>{staff.branchNo}</td>
-              <td>{staff.telephone}</td>
-              <td>{staff.mobile}</td>
-              <td>{staff.email}</td>
-              <td>
-                <Link
-                  to={`/staff/staff-edit/${staff.staffNo}`}
-                  className={styles.editButton}
-                >
-                  Edit
-                </Link>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <tbody>
+            {currData.map((staff, index) => (
+              <tr key={staff.staffNo}>
+                <td>{index + 1 + (currPage - 1) * rowsPerPage}</td>
+                <td>{staff.staffNo}</td>
+                <td>{staff.fname}</td>
+                <td>{staff.lname}</td>
+                <td>{staff.position}</td>
+                <td>{staff.sex}</td>
+                <td>{formatDate(staff.dob)}</td>
+                <td>{staff.salary}</td>
+                <td>{staff.branchNo}</td>
+                <td>{staff.telephone}</td>
+                <td>{staff.mobile}</td>
+                <td>{staff.email}</td>
+                <td>
+                  <Link
+                    to={`/staff/staff-edit/${staff.staffNo}`}
+                    className={styles.editButton}
+                  >
+                    Edit
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        )}
       </table>
     </section>
   );
