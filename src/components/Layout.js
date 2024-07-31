@@ -1,16 +1,17 @@
-import PageNav from "./PageNav";
-import Footer from "./Footer";
 import styles from "./Layout.module.css";
+import Sidebar from "./Sidebar";
 
 function Layout({ children }) {
   return (
-    <>
-      <PageNav />
-      <div className={styles.layout}>
-        <div className={styles.main}>{children}</div>
-        <Footer />
+    <div className={styles.layout}>
+      <div className={styles.sidebar}>
+        <Sidebar />
       </div>
-    </>
+
+      <div className={styles.dashboard}>
+        <div className={styles.main}>{children}</div>
+      </div>
+    </div>
   );
 }
 
