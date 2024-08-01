@@ -1,0 +1,21 @@
+.welcomeContainer {
+  padding: 20px;
+}
+
+.navigationLinks {
+  margin-top: 20px;
+}
+
+.navigationLinks ul {
+  list-style: none;
+  padding: 0;
+}
+
+.navigationLinks li {
+  margin-bottom: 10px;
+}
+
+.announcements,
+.userInfo {
+  margin-top: 30px;
+}

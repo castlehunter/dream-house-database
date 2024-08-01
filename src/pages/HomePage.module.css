@@ -11,10 +11,11 @@
 }
 
 .homepage section {
-  flex-direction: column;
+  display: flex;
   height: 85%;
   gap: 2.5rem;
   text-align: center;
+  align-items: center;
 }
 
 .homepage h1 {
