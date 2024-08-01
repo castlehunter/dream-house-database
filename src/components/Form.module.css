@@ -1,18 +1,19 @@
 .formContainer {
   display: flex;
-  gap: 20px;
+  /* gap: 20px; */
 }
 
 .mainContent {
   flex: 1;
-  padding: 28px 64px 28px 16px;
+  /* padding: 28px 64px 28px 16px; */
+  padding: 28px 64px 28px 64px;
 }
 
 .formWrapper {
   background-color: #f3ede9;
   border-radius: 20px;
-  padding: 29px 80px 80px 21px;
-  margin-top: 72px;
+  padding: 24px 20px;
+  margin-top: 16px;
 }
 
 .formTitle {
