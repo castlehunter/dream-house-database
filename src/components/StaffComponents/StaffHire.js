@@ -169,11 +169,11 @@ function StaffHire() {
   }
 
   return (
-    <div className={styles.staffFormContainer}>
+    <div className={styles.formContainer}>
       <main className={styles.mainContent}>
         <section className={styles.formWrapper}>
           <h2 className={styles.formTitle}>Staff Hiring</h2>
-          <form className={styles.staffForm} onSubmit={handleSubmit}>
+          <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.formRow}>
               <div className={styles.formGroup}>
                 <label htmlFor="staffno" className={styles.formLabel}>

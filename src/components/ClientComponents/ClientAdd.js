@@ -144,11 +144,11 @@ function ClientAdd() {
   }
 
   return (
-    <div className={styles.clientFormContainer}>
+    <div className={styles.formContainer}>
       <main className={styles.mainContent}>
         <section className={styles.formWrapper}>
           <h2 className={styles.formTitle}>Client Add</h2>
-          <form className={styles.clientForm} onSubmit={handleSubmit}>
+          <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.formRow}>
               <div className={styles.formGroup}>
                 <label htmlFor="clientNo" className={styles.formLabel}>
