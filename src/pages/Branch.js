@@ -5,13 +5,13 @@ import styles from "./Staff.module.css";
 
 function Branch() {
   return (
-    <Layout>
-      <main className={styles.staff}>
-        <div className={styles.mainContent}>
-          <Outlet />
-        </div>
-      </main>
-    </Layout>
+    // <Layout>
+    <main className={styles.staff}>
+      <div className={styles.mainContent}>
+        <Outlet />
+      </div>
+    </main>
+    // </Layout>
   );
 }
 
