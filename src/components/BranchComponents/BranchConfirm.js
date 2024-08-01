@@ -61,7 +61,7 @@ function BranchConfirm({ type }) {
         <p>Postal Code: {branchData.postcode}</p>
       </div>
 
-      <Button onClick={() => navigate("/branch/branch-list")}>
+      <Button onClick={() => navigate("/dashboard/branch/branch-list")}>
         Go to branch list
       </Button>
     </>

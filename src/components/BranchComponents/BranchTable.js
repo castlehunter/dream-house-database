@@ -44,7 +44,7 @@ function BranchTable({ branchData, rowsPerPage, currPage, isLoading }) {
                 <td>{branch.sex}</td>
                 <td>
                   <Link
-                    to={`/branch/branch-edit/${branch.branchNo}`}
+                    to={`/dashboard/branch/branch-edit/${branch.branchNo}`}
                     className={styles.editButton}
                   >
                     Edit

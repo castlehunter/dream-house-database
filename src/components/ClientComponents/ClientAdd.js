@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../Form.module.css";
 import { useNavigate } from "react-router-dom";
 import Button from "../Button";
+import Loader from "../Loader";
 
 function ClientAdd() {
   const [clientNo, setClientNo] = useState("");
@@ -13,6 +14,7 @@ function ClientAdd() {
   const [email, setEmail] = useState("");
   const [preftype, setPreftype] = useState("");
   const [maxrent, setMaxrent] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const [existingClientNos, setExistingClientNos] = useState([]);
@@ -22,6 +24,7 @@ function ClientAdd() {
     async function fetchClientNos() {
       try {
         setError("");
+        setIsLoading(true);
         const response = await fetch(
           "http://localhost:3900/api/client/existing-clientno"
         );
@@ -30,6 +33,8 @@ function ClientAdd() {
       } catch (error) {
         console.error("Error fetching client numbers:", error);
         setError("Failed to fetch existing client numbers");
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchClientNos();
@@ -96,9 +101,7 @@ function ClientAdd() {
     // }
 
     if (!isValidEmail(email)) {
-      alert(
-        "Email should be in the format of letters and/or numbers followed by @"
-      );
+      alert("Email should be in the format of xxx@xxx.xxx");
       return;
     }
 
@@ -128,7 +131,7 @@ function ClientAdd() {
         throw new Error("Failed to add new client");
       }
 
-      navigate(`/client/add-client-confirmed/${clientNo}`);
+      navigate(`/dashboard/client/add-client-confirmed/${clientNo}`);
     } catch (error) {
       setError(error.message);
     }
@@ -146,145 +149,150 @@ function ClientAdd() {
   return (
     <div className={styles.formContainer}>
       <main className={styles.mainContent}>
-        <section className={styles.formWrapper}>
-          <h2 className={styles.formTitle}>Client Add</h2>
-          <form className={styles.form} onSubmit={handleSubmit}>
-            <div className={styles.formRow}>
-              <div className={styles.formGroup}>
-                <label htmlFor="clientNo" className={styles.formLabel}>
-                  Client No.
-                </label>
-                <input
-                  type="text"
-                  className={styles.formInput}
-                  value={clientNo}
-                  readOnly
-                />
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <section className={styles.formWrapper}>
+            <h2 className={styles.formTitle}>Client Add</h2>
+            <form className={styles.form} onSubmit={handleSubmit}>
+              <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="clientNo" className={styles.formLabel}>
+                    Client No.
+                  </label>
+                  <input
+                    type="text"
+                    className={styles.formInput}
+                    value={clientNo}
+                    readOnly
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="firstName" className={styles.formLabel}>
+                    First Name
+                  </label>
+                  <input
+                    type="text"
+                    className={styles.formInput}
+                    placeholder="Enter first name"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="lastName" className={styles.formLabel}>
+                    Last Name
+                  </label>
+                  <input
+                    type="text"
+                    className={styles.formInput}
+                    placeholder="Enter last name"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                  />
+                </div>
               </div>
 
-              <div className={styles.formGroup}>
-                <label htmlFor="firstName" className={styles.formLabel}>
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  className={styles.formInput}
-                  placeholder="Enter first name"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
+              <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="telno" className={styles.formLabel}>
+                    Telephone
+                  </label>
+                  <input
+                    type="text"
+                    value={telno}
+                    className={styles.formInput}
+                    placeholder="Enter telephone"
+                    onChange={(e) => setTelno(e.target.value)}
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="street" className={styles.formLabel}>
+                    Street
+                  </label>
+                  <input
+                    type="text"
+                    value={street}
+                    className={styles.formInput}
+                    placeholder="Enter street"
+                    onChange={(e) => setStreet(e.target.value)}
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="city" className={styles.formLabel}>
+                    City
+                  </label>
+                  <input
+                    type="text"
+                    value={city}
+                    className={styles.formInput}
+                    placeholder="Enter city"
+                    onChange={(e) => setCity(e.target.value)}
+                  />
+                </div>
               </div>
 
-              <div className={styles.formGroup}>
-                <label htmlFor="lastName" className={styles.formLabel}>
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  className={styles.formInput}
-                  placeholder="Enter last name"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-              </div>
-            </div>
+              <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="email" className={styles.formLabel}>
+                    Email
+                  </label>
+                  <input
+                    type="text"
+                    value={email}
+                    className={styles.formInput}
+                    placeholder="Enter email"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
 
-            <div className={styles.formRow}>
-              <div className={styles.formGroup}>
-                <label htmlFor="telno" className={styles.formLabel}>
-                  Telephone
-                </label>
-                <input
-                  type="text"
-                  value={telno}
-                  className={styles.formInput}
-                  placeholder="Enter telephone"
-                  onChange={(e) => setTelno(e.target.value)}
-                />
-              </div>
+                <div className={styles.formGroup}>
+                  <label htmlFor="preftype" className={styles.formLabel}>
+                    Preferred Type
+                  </label>
+                  <select
+                    value={preftype}
+                    className={styles.formInput}
+                    onChange={(e) => setPreftype(e.target.value)}
+                  >
+                    <option value="">Select Preftype</option>
+                    <option value="house" key="house">
+                      House
+                    </option>
+                    <option value="flat" key="flat">
+                      Flat
+                    </option>
+                  </select>
+                </div>
 
-              <div className={styles.formGroup}>
-                <label htmlFor="street" className={styles.formLabel}>
-                  Street
-                </label>
-                <input
-                  type="text"
-                  value={street}
-                  className={styles.formInput}
-                  placeholder="Enter street"
-                  onChange={(e) => setStreet(e.target.value)}
-                />
-              </div>
-
-              <div className={styles.formGroup}>
-                <label htmlFor="city" className={styles.formLabel}>
-                  City
-                </label>
-                <input
-                  type="text"
-                  value={city}
-                  className={styles.formInput}
-                  placeholder="Enter city"
-                  onChange={(e) => setCity(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <div className={styles.formRow}>
-              <div className={styles.formGroup}>
-                <label htmlFor="email" className={styles.formLabel}>
-                  Email
-                </label>
-                <input
-                  type="email"
-                  value={email}
-                  className={styles.formInput}
-                  placeholder="Enter email"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
+                <div className={styles.formGroup}>
+                  <label htmlFor="maxrent" className={styles.formLabel}>
+                    Maximum Rent
+                  </label>
+                  <input
+                    type="number"
+                    className={styles.formInput}
+                    placeholder="Enter maximum rent"
+                    value={maxrent}
+                    onChange={(e) => setMaxrent(e.target.value)}
+                  />
+                </div>
               </div>
 
-              <div className={styles.formGroup}>
-                <label htmlFor="preftype" className={styles.formLabel}>
-                  Preferred Type
-                </label>
-                <select
-                  value={preftype}
-                  className={styles.formInput}
-                  onChange={(e) => setPreftype(e.target.value)}
-                >
-                  <option value="house" key="house">
-                    House
-                  </option>
-                  <option value="flat" key="flat">
-                    Flat
-                  </option>
-                </select>
+              <div className={styles.formActions}>
+                <Button classType="submit">Add Client</Button>
+                <Button classType="cancel" onClick={handleCancel}>
+                  Cancel
+                </Button>
               </div>
-
-              <div className={styles.formGroup}>
-                <label htmlFor="maxrent" className={styles.formLabel}>
-                  Maximum Rent
-                </label>
-                <input
-                  type="number"
-                  className={styles.formInput}
-                  placeholder="Enter maximum rent"
-                  value={maxrent}
-                  onChange={(e) => setMaxrent(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <div className={styles.formActions}>
-              <Button classType="submit">Add Client</Button>
-              <Button classType="cancel" onClick={handleCancel}>
-                Cancel
-              </Button>
-            </div>
-          </form>
-          {error && <div>Error: {error}</div>}
-        </section>
+            </form>
+            {error && <div>Error: {error}</div>}
+          </section>
+        )}
       </main>
     </div>
   );

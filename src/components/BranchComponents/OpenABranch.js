@@ -77,7 +77,7 @@ function OpenABranch() {
     } catch (error) {
       setError(error);
     }
-    navigate(`/branch/new-branch-confirmed/${branchNo}`);
+    navigate(`/dashboard/branch/new-branch-confirmed/${branchNo}`);
   }
 
   function handleCancel(e) {

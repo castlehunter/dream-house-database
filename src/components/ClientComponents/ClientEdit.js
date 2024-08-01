@@ -105,9 +105,7 @@ function ClientEdit() {
     // }
 
     if (!isValidEmail(email)) {
-      alert(
-        "Email should be in the format of letters and/or numbers followed by @"
-      );
+      alert("Email should be in the format of xxx@xxx.xxx");
       return;
     }
 
@@ -140,7 +138,7 @@ function ClientEdit() {
       setError(error.message);
     }
 
-    navigate(`/client/edit-confirmed/${clientNo}`);
+    navigate(`/dashboard/client/edit-confirmed/${clientNo}`);
   }
 
   if (error) {

@@ -64,7 +64,7 @@ function StaffTable({ staffData, rowsPerPage, currPage, isLoading }) {
                 <td>{staff.email}</td>
                 <td>
                   <Link
-                    to={`/staff/staff-edit/${staff.staffNo}`}
+                    to={`/dashboard/staff/staff-edit/${staff.staffNo}`}
                     className={styles.editButton}
                   >
                     Edit

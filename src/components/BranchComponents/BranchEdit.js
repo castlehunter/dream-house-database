@@ -76,7 +76,7 @@ function BranchEdit() {
         throw new Error("Failed to update branch");
       }
 
-      navigate(`/branch/edit-confirmed/${branchNo}`);
+      navigate(`/dashboard/branch/edit-confirmed/${branchNo}`);
     } catch (error) {
       setError(error.message);
     }

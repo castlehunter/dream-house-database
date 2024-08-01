@@ -119,9 +119,7 @@ function StaffHire() {
     }
 
     if (!isValidEmail(email)) {
-      alert(
-        "Email should be in the format of letters and/or numbers followed by @"
-      );
+      alert("Email should be in the format of xxx@xxx.xxx");
       return;
     }
 
@@ -153,7 +151,7 @@ function StaffHire() {
         throw new Error("Failed to add new staff");
       }
 
-      navigate(`/staff/hire-confirmed/${staffNo}`);
+      navigate(`/dashboard/staff/hire-confirmed/${staffNo}`);
     } catch (error) {
       setError(error.message);
     }

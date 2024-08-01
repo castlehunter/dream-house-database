@@ -56,7 +56,7 @@ function ClientTable({ clientData, rowsPerPage, currPage, isLoading }) {
                 <td>{client.maxrent}</td>
                 <td>
                   <Link
-                    to={`/client/client-edit/${client.clientNo}`}
+                    to={`/dashboard/client/client-edit/${client.clientNo}`}
                     className={styles.editButton}
                   >
                     Edit

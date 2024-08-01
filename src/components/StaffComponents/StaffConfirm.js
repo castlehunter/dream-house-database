@@ -1,11 +1,14 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Button from "../Button";
+import Loader from "../Loader";
 
 function StaffConfirm({ type }) {
   const [staffData, setStaffData] = useState(null);
   const [error, setError] = useState(null);
-
   const { staffNo } = useParams();
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (!staffNo) {
@@ -14,6 +17,8 @@ function StaffConfirm({ type }) {
 
     async function fetchStaffData() {
       try {
+        setError("");
+        setIsLoading(true);
         const response = await fetch(
           `http://localhost:3900/api/staff/${staffNo}`
         );
@@ -40,6 +45,8 @@ function StaffConfirm({ type }) {
         setStaffData(transformedData);
       } catch (error) {
         setError(error.message);
+      } finally {
+        setIsLoading(false);
       }
     }
 
@@ -56,21 +63,28 @@ function StaffConfirm({ type }) {
 
   return (
     <>
-      {type === "new" && <h1>Staff Added</h1>}
-      {type === "edit" && <h1>Staff Updated</h1>}
-      <div>
-        <p>First Name: {staffData.firstName}</p>
-        <p>Last Name: {staffData.lastName}</p>
-        <p>Position: {staffData.position}</p>
-        <p>Sex: {staffData.sex}</p>
-        <p>DOB: {new Date(staffData.dob).toLocaleDateString()}</p>
-        <p>Salary: {staffData.salary}</p>
-        <p>Telephone: {staffData.telephone}</p>
-        <p>Mobile: {staffData.mobile}</p>
-        <p>Email: {staffData.email}</p>
-      </div>
-      {/* <Link to={`/staff/staff-edit/${staffNo}`}>Edit</Link> */}
-      <Link to="/staff/staff-list">Go to staff list</Link>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          {type === "new" && <h1>Staff Added</h1>}
+          {type === "edit" && <h1>Staff Updated</h1>}
+          <div>
+            <p>First Name: {staffData.firstName}</p>
+            <p>Last Name: {staffData.lastName}</p>
+            <p>Position: {staffData.position}</p>
+            <p>Sex: {staffData.sex}</p>
+            <p>DOB: {new Date(staffData.dob).toLocaleDateString()}</p>
+            <p>Salary: {staffData.salary}</p>
+            <p>Telephone: {staffData.telephone}</p>
+            <p>Mobile: {staffData.mobile}</p>
+            <p>Email: {staffData.email}</p>
+          </div>
+          <Button onClick={() => navigate("/dashboard/staff/staff-list")}>
+            Go to Staff List
+          </Button>
+        </>
+      )}
     </>
   );
 }
