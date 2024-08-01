@@ -9,11 +9,10 @@
   color: #fff;
   font-weight: 700;
   letter-spacing: -0.38px;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  padding: 20px 10px 20px 10px;
+  padding: 20px 60px 20px 60px;
   border-bottom: 1px solid #cecbcbf3;
-  /* background-color: #171821; */
 }
 
 .logo {
@@ -33,33 +32,5 @@
   font-weight: bold;
   font-size: 28px;
   margin-left: 20px;
-  color: #61dbfb;
-}
-
-.navItems {
-  display: flex;
-  align-items: center;
-  gap: 60px;
-  justify-content: space-between;
-  flex-direction: row;
-}
-
-@media (max-width: 991px) {
-  .navLinks {
-    max-width: 100%;
-    flex-wrap: wrap;
-  }
-}
-
-.navItem {
-  font-family: DMSans, sans-serif;
-  align-self: stretch;
-  margin: auto 0;
-  color: #fff;
-  text-decoration: none;
-}
-
-.active {
-  font-size: 1.5em;
   color: #61dbfb;
 }

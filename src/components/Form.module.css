@@ -1,7 +1,6 @@
-.staffFormContainer {
+.formContainer {
   display: flex;
   gap: 20px;
-  background-color: #f8f9fd;
 }
 
 .mainContent {
@@ -10,7 +9,7 @@
 }
 
 .formWrapper {
-  background-color: #fff;
+  background-color: #f3ede9;
   border-radius: 20px;
   padding: 29px 80px 80px 21px;
   margin-top: 72px;
@@ -22,7 +21,7 @@
   margin-bottom: 40px;
 }
 
-.staffForm {
+.form {
   display: flex;
   flex-direction: column;
   gap: 24px;

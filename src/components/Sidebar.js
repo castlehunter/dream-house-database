@@ -1,4 +1,4 @@
-import styles from "./Siderbar.module.css";
+import styles from "./Sidebar.module.css";
 import {
   CSidebar,
   CSidebarHeader,
@@ -10,9 +10,32 @@ import {
   CBadge,
 } from "@coreui/react";
 import "@coreui/coreui/dist/css/coreui.min.css";
+// import CIcon from "@coreui/icons-react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../assets/logo.png";
+// import { useState } from "react";
 
 function Sidebar() {
+  // const [openGroups, setOpenGroups] = useState({
+  //   staff: false,
+  //   branch: false,
+  //   client: false,
+  // });
+
+  // const toggleNavGroup = (group) => {
+  //   setOpenGroups((prev) => ({
+  //     ...prev,
+  //     [group]: !prev[group],
+  //   }));
+  // };
+
+  // const handleNavItemClick = (group) => {
+  //   setOpenGroups((prev) => ({
+  //     ...prev,
+  //     [group]: true,
+  //   }));
+  // };
+
   return (
     <CSidebar
       className="border-end"
@@ -27,6 +50,7 @@ function Sidebar() {
           </div>
         </CSidebarBrand>
       </CSidebarHeader>
+
       <CSidebarNav>
         <CNavTitle>Dashboard</CNavTitle>
 
@@ -34,8 +58,15 @@ function Sidebar() {
           Home <CBadge color="primary ms-auto">NEW</CBadge>
         </CNavItem>
 
-        <CNavGroup toggler={<>Staff</>}>
-          <CNavItem href="/staff/staff-list">
+        <CNavGroup
+          toggler="Staff"
+          // className={openGroups.staff && "show"}
+          // onClick={() => toggleNavGroup("staff")}
+        >
+          <CNavItem
+            href="/staff/staff-list"
+            // onClick={() => handleNavItemClick("staff")}
+          >
             <span className="nav-icon">
               <span className="nav-icon-bullet"></span>
             </span>{" "}
@@ -49,7 +80,7 @@ function Sidebar() {
           </CNavItem>
         </CNavGroup>
 
-        <CNavGroup toggler={<>Branch</>}>
+        <CNavGroup toggler="Branch">
           <CNavItem href="/branch/identify-branch-address">
             <span className="nav-icon">
               <span className="nav-icon-bullet"></span>
@@ -70,7 +101,7 @@ function Sidebar() {
           </CNavItem>
         </CNavGroup>
 
-        <CNavGroup toggler={<>Client</>}>
+        <CNavGroup toggler="Client">
           <CNavItem href="/client/client-list">
             <span className="nav-icon">
               <span className="nav-icon-bullet"></span>
