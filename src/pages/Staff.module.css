@@ -14,7 +14,9 @@
 
 .mainContent {
   flex: 1;
-  padding: 20px;
+  align-items: center;
+  justify-content: center;
   background-color: #ebdfd7;
   color: #2c3e50;
+  margin: 20px;
 }

@@ -1,17 +1,63 @@
 import React, { useState } from "react";
 import styles from "./SidebarNew.module.css";
 import { Link } from "react-router-dom";
-import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
+import {
+  Sidebar,
+  Menu,
+  MenuItem,
+  SubMenu,
+  menuClasses,
+} from "react-pro-sidebar";
+import logo from "../assets/logo.png";
 function SidebarNew() {
   return (
-    <div style={{ display: "flex", height: "100%" }}>
-      <Sidebar backgroundColor=" #111">
-        <Menu>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+        width: "300px",
+        backgroundColor: " #111",
+      }}
+    >
+      <div
+        style={{
+          width: "300px",
+          height: "auto",
+          display: "flex",
+          alignItems: "center",
+          padding: "10px 20px",
+          background: "#111",
+          borderBottom: "1px solid #555",
+        }}
+      >
+        <img src={logo} alt="logo" style={{ width: "50px", height: "auto" }} />
+        <span
+          style={{
+            fontWeight: "bold",
+            fontSize: "28px",
+            paddingLeft: "20px",
+            color: "#61dbfb",
+            fontFamily: "Dancing Script Roboto sans-serif",
+          }}
+        >
+          Dream Home
+        </span>
+      </div>
+
+      <Sidebar backgroundColor=" #111" width="301px">
+        <Menu
+          rootStyles={{
+            ["." + menuClasses.subMenuContent]: {
+              background: "#333",
+            },
+            ["." + menuClasses.button]: {
+              "&:hover": { color: "#000" },
+            },
+          }}
+        >
           <SubMenu label="Staff">
-            <MenuItem
-              component={<Link to="/dashboard/staff/staff-list" />}
-              active
-            >
+            <MenuItem component={<Link to="/dashboard/staff/staff-list" />}>
               {" "}
               Staff List{" "}
             </MenuItem>
