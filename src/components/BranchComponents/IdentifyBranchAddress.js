@@ -53,38 +53,43 @@ function IdentifyBranchAddress() {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div className={styles.formRow}>
-          <div className={styles.formGroup}>
-            <label htmlFor="branchNo" className={styles.formLabel}>
-              Enter branch number:{" "}
-            </label>
-            <input
-              className={styles.formInput}
-              value={branchNo}
-              onChange={(e) => setBranchNo(e.target.value)}
-            />
-          </div>
-        </div>
-        <div className={styles.formActions}>
-          <Button classType="submit">Search</Button>
-          <Button classType="cancel" onClick={handleClear}>
-            Clear
-          </Button>
-        </div>
-      </form>
-      {branchInfo ? (
-        <div>
-          <h2>Branch Information</h2>
-          <p>Branch No: {branchInfo.branchNo}</p>
-          <p>Street: {branchInfo.street}</p>
-          <p>City: {branchInfo.city}</p>
-          <p>Postal Code: {branchInfo.postcode}</p>
-        </div>
-      ) : (
-        <div>{error}</div>
-      )}
+    <div className={styles.formContainer}>
+      <main className={styles.mainContent}>
+        <section className={styles.formWrapper}>
+          <h2 className={styles.formTitle}>Identify Branch Address</h2>
+          <form onSubmit={handleSubmit}>
+            <div className={styles.formRow}>
+              <div className={styles.formGroup}>
+                <label htmlFor="branchNo" className={styles.formLabel}>
+                  Enter branch number:{" "}
+                </label>
+                <input
+                  className={styles.formInput}
+                  value={branchNo}
+                  onChange={(e) => setBranchNo(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className={styles.formActions}>
+              <Button classType="submit">Search</Button>
+              <Button classType="cancel" onClick={handleClear}>
+                Clear
+              </Button>
+            </div>
+          </form>
+          {branchInfo ? (
+            <div>
+              <h2>Branch Information</h2>
+              <p>Branch No: {branchInfo.branchNo}</p>
+              <p>Street: {branchInfo.street}</p>
+              <p>City: {branchInfo.city}</p>
+              <p>Postal Code: {branchInfo.postcode}</p>
+            </div>
+          ) : (
+            <div>{error}</div>
+          )}
+        </section>
+      </main>
     </div>
   );
 }
