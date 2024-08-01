@@ -1,0 +1,153 @@
+可实现保持submenu展开
+
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import styles from "./SidebarNew.module.css";
+
+function SidebarNew() {
+  const [activeMenu, setActiveMenu] = useState("");
+  const location = useLocation();
+
+  // Update activeMenu based on the current route
+  useEffect(() => {
+    const path = location.pathname;
+    
+    // Match the path to determine which menu should be active
+    if (path.startsWith("/dashboard/staff")) {
+      setActiveMenu("staff");
+    } else if (path.startsWith("/dashboard/branch")) {
+      setActiveMenu("branch");
+    } else if (path.startsWith("/dashboard/client")) {
+      setActiveMenu("client");
+    } else {
+      setActiveMenu("");
+    }
+  }, [location.pathname]);
+
+  const toggleMenu = (menu) => {
+    setActiveMenu(activeMenu === menu ? "" : menu);
+  };
+
+  return (
+    <div className={styles.sidebar}>
+      <div className={styles.menuItem}>
+        <div onClick={() => toggleMenu("staff")}>Staff</div>
+        {activeMenu === "staff" && (
+          <div className={styles.subMenu}>
+            <Link to="/dashboard/staff/staff-list">Staff List</Link>
+            <Link to="/dashboard/staff/staff-hire">Staff Hire</Link>
+          </div>
+        )}
+      </div>
+      <div className={styles.menuItem}>
+        <div onClick={() => toggleMenu("branch")}>Branch</div>
+        {activeMenu === "branch" && (
+          <div className={styles.subMenu}>
+            <Link to="/dashboard/branch/identify-branch-address">
+              Identify a branch
+            </Link>
+            <Link to="/dashboard/branch/branch-list">Branch List</Link>
+            <Link to="/dashboard/branch/open-a-branch">Open a branch</Link>
+          </div>
+        )}
+      </div>
+      <div className={styles.menuItem}>
+        <div onClick={() => toggleMenu("client")}>Client</div>
+        {activeMenu === "client" && (
+          <div className={styles.subMenu}>
+            <Link to="/dashboard/client/client-list">Client List</Link>
+            <Link to="/dashboard/client/client-add">Add a client</Link>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default SidebarNew;
+
+
+备份2
+import React, { useState } from "react";
+import styles from "./SidebarNew.module.css";
+import { Link } from "react-router-dom";
+
+function SidebarNew() {
+  const [activeMenu, setActiveMenu] = useState("");
+
+  const toggleMenu = (menu) => {
+    // Only toggle the current menu's state
+    setActiveMenu(activeMenu === menu ? "" : menu);
+  };
+
+  return (
+    <div className={styles.sidebar}>
+      <div className={styles.menuItem}>
+        <div onClick={() => toggleMenu("staff")}>Staff</div>
+        {activeMenu === "staff" && (
+          <div className={styles.subMenu}>
+            <Link
+              to="/dashboard/staff/staff-list"
+              onClick={() => setActiveMenu("staff")} // Keep 'staff' menu open on navigation
+            >
+              Staff List
+            </Link>
+            <Link
+              to="/dashboard/staff/staff-hire"
+              onClick={() => setActiveMenu("staff")} // Keep 'staff' menu open on navigation
+            >
+              Staff Hire
+            </Link>
+          </div>
+        )}
+      </div>
+      <div className={styles.menuItem}>
+        <div onClick={() => toggleMenu("branch")}>Branch</div>
+        {activeMenu === "branch" && (
+          <div className={styles.subMenu}>
+            <Link
+              to="/dashboard/branch/identify-branch-address"
+              onClick={() => setActiveMenu("branch")} // Keep 'branch' menu open on navigation
+            >
+              Identify a branch
+            </Link>
+            <Link
+              to="/dashboard/branch/branch-list"
+              onClick={() => setActiveMenu("branch")} // Keep 'branch' menu open on navigation
+            >
+              Branch List
+            </Link>
+            <Link
+              to="/dashboard/branch/open-a-branch"
+              onClick={() => setActiveMenu("branch")} // Keep 'branch' menu open on navigation
+            >
+              Open a branch
+            </Link>
+          </div>
+        )}
+      </div>
+      <div className={styles.menuItem}>
+        <div onClick={() => toggleMenu("client")}>Client</div>
+        {activeMenu === "client" && (
+          <div className={styles.subMenu}>
+            <Link
+              to="/dashboard/client/client-list"
+              onClick={() => setActiveMenu("client")} // Keep 'client' menu open on navigation
+            >
+              Client List
+            </Link>
+            <Link
+              to="/dashboard/client/client-add"
+              onClick={() => setActiveMenu("client")} // Keep 'client' menu open on navigation
+            >
+              Add a client
+            </Link>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default SidebarNew;
+

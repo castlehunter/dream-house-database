@@ -1,11 +1,11 @@
 import styles from "./Layout.module.css";
-import Sidebar from "./Sidebar";
+import SidebarNew from "./SidebarNew";
 
 function Layout({ children }) {
   return (
     <div className={styles.layout}>
       <div className={styles.sidebar}>
-        <Sidebar />
+        <SidebarNew />
       </div>
 
       <div className={styles.dashboard}>

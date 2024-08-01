@@ -7,9 +7,7 @@ function HomePage() {
   return (
     <main className={styles.homepage}>
       <PageNav bgColor="#000" />
-      <section>
-        <h1>Dream Home Real Estate</h1>
-      </section>
+      <section></section>
       <Footer />
     </main>
   );

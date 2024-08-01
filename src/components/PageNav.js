@@ -11,6 +11,7 @@ function PageNav({ bgColor = "" }) {
         <img src={logo} alt="logo" />
         <span className={styles.logoText}>Dream Home</span>
       </div>
+      <h4>Dream Home System</h4>
     </nav>
   );
 }
