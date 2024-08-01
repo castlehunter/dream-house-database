@@ -8,7 +8,7 @@ function Welcome() {
       <h1>Welcome to the Dream House Dashboard!</h1>
       <p>
         This is your central hub for managing staff, branches, and clients.
-        Navigate through the menu to access various features.
+        Navigate through the menu to access various features..
       </p>
 
       <div className={styles.navigationLinks}>
