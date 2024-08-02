@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-import styles from "./SidebarNew.module.css";
 import { Link } from "react-router-dom";
 import {
   Sidebar,
@@ -20,30 +18,36 @@ function SidebarNew() {
         backgroundColor: " #111",
       }}
     >
-      <div
-        style={{
-          width: "300px",
-          height: "auto",
-          display: "flex",
-          alignItems: "center",
-          padding: "10px 20px",
-          background: "#111",
-          borderBottom: "1px solid #555",
-        }}
-      >
-        <img src={logo} alt="logo" style={{ width: "50px", height: "auto" }} />
-        <span
+      <Link to="/" style={{ textDecoration: "none" }}>
+        <div
           style={{
-            fontWeight: "bold",
-            fontSize: "28px",
-            paddingLeft: "20px",
-            color: "#61dbfb",
-            fontFamily: "Dancing Script Roboto sans-serif",
+            width: "300px",
+            height: "auto",
+            display: "flex",
+            alignItems: "center",
+            padding: "10px 20px",
+            background: "#111",
+            borderBottom: "1px solid #555",
           }}
         >
-          Dream Home
-        </span>
-      </div>
+          <img
+            src={logo}
+            alt="logo"
+            style={{ width: "50px", height: "auto" }}
+          />
+          <span
+            style={{
+              fontWeight: "bold",
+              fontSize: "28px",
+              paddingLeft: "20px",
+              color: "#61dbfb",
+              fontFamily: "Dancing Script Roboto sans-serif",
+            }}
+          >
+            Dream Home
+          </span>
+        </div>
+      </Link>
 
       <Sidebar backgroundColor=" #111" width="301px">
         <Menu
