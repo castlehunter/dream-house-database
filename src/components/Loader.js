@@ -1,7 +1,9 @@
-import styles from "./Loader.module.css";
-
 function Loader() {
-  return <div>Loading Data...</div>;
+  return (
+    <div>
+      <p>Loading Data...</p>
+    </div>
+  );
 }
 
 export default Loader;

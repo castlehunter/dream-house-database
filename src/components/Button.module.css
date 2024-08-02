@@ -10,6 +10,12 @@
   background: linear-gradient(135deg, #14add6 0%, #384295 100%);
   color: #fff;
   margin-right: 10px;
+  transition: box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.btn:hover {
+  background: linear-gradient(135deg, #0f8acc 0%, #2e3c7b 100%);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Increased shadow for hover */
 }
 
 .primary {
@@ -18,10 +24,22 @@
   color: var(--color-dark--1);
 }
 
+.primary:hover {
+  background-color: var(--color-brand--3);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Increased shadow for hover */
+}
+
 .back {
   font-weight: 600;
   background: none;
   border: 1px solid currentColor;
+  color: currentColor;
+}
+
+.back:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Increased shadow for hover */
 }
 
 .position {
@@ -37,6 +55,11 @@
   box-shadow: 0 0.4rem 1.2rem rgba(36, 42, 46, 0.16);
 }
 
+.position:hover {
+  background-color: var(--color-brand--3);
+  box-shadow: 0 0.6rem 1.4rem rgba(36, 42, 46, 0.2); /* Increased shadow for hover */
+}
+
 .login {
   width: 200px;
   font-size: 20px;
@@ -48,7 +71,7 @@
   color: #ffffff;
   text-align: center;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: box-shadow 0.3s ease, background 0.3s ease;
   position: relative;
   z-index: 10;
   margin-top: -500px; /* Adjust the Y-axis position */
@@ -56,6 +79,5 @@
 
 .login:hover {
   background: linear-gradient(135deg, #666666 0%, #333333 100%);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7), 0 0 15px rgba(255, 255, 255, 0.5);
-  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7), 0 0 15px rgba(255, 255, 255, 0.5); /* Increased shadow for hover */
 }
